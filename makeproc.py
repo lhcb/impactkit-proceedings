@@ -43,6 +43,7 @@ def build_single_pdf(dir_):
     out_file = os.path.abspath(os.path.splitext(md_files[0])[0] + '.pdf')
     template = os.path.join(prev_cwd, TEMPLATE)
     ret = os.system('pandoc -o {output} {yaml} {md} '
+                    '--listings '
                     '--template={template}'.format(output=out_file,
                                                    yaml=' '.join(yaml_files),
                                                    md=' '.join(md_files),
