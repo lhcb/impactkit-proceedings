@@ -1,4 +1,4 @@
-The aim of the project is to enable the automatic insertion of numbers, figures etc. into LaTeX documents without the need for manual intervention. This is acheived by adding the following syntax to .tex files:
+The aim of the project is to enable the automatic insertion of numbers, figures etc. into LaTeX documents without the need for manual intervention. It can be found at https://gitlab.cern.ch/nfarley/papermake/. This is acheived by adding the following syntax to .tex files:
 
 
 ```latex
