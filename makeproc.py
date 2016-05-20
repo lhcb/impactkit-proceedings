@@ -13,7 +13,8 @@ import glob
 from PyPDF2 import PdfFileWriter, PdfFileReader
 
 CONTRIB_DIRS = 'contrib-*'
-TEMPLATE = 'pandoc.tufte.handout.tex'
+SINGLE_TEMPLATE = 'latex/standalone.tex'
+CHAPTER_TEMPLATE = 'pter.tex'
 
 
 def build_single_pdf(dir_):
@@ -34,20 +35,26 @@ def build_single_pdf(dir_):
 
     """
     prev_cwd = os.getcwd()
-    os.chdir(dir_)
-    md_files = glob.glob('*.md')
+    dir_ = os.path.abspath(dir_)
+    os.chdir('latex')
+    md_files = [os.path.abspath(file_)
+                for file_ in glob.glob(os.path.join(dir_,
+                                                    '*.md'))]
     if not md_files:
         os.chdir(prev_cwd)
         return ''
-    yaml_files = glob.glob('*.yaml')
+    yaml_files = [os.path.abspath(file_)
+                  for file_ in glob.glob(os.path.join(dir_,
+                                                      '*.yaml'))]
     out_file = os.path.abspath(os.path.splitext(md_files[0])[0] + '.pdf')
-    template = os.path.join(prev_cwd, TEMPLATE)
+    # Build single PDF
     ret = os.system('pandoc -o {output} {yaml} {md} '
                     '--listings '
-                    '--template={template}'.format(output=out_file,
-                                                   yaml=' '.join(yaml_files),
-                                                   md=' '.join(md_files),
-                                                   template=template))
+                    '--template="{template}"'.format(output=out_file,
+                                                     yaml=' '.join(yaml_files),
+                                                     md=' '.join(md_files),
+                                                     template=os.path.join(prev_cwd,
+                                                                           SINGLE_TEMPLATE)))
     os.chdir(prev_cwd)
     if ret:
         raise OSError("Pandoc error")

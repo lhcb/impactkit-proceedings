@@ -1,0 +1,57 @@
+\documentclass[11pt,a4paper,DIV=12]{scrreprt}
+
+% Variables that controls behaviour
+\usepackage{ifthen} % for conditional statements
+\newboolean{pdflatex}
+\setboolean{pdflatex}{true} % False for eps figures 
+
+\newboolean{articletitles}
+\setboolean{articletitles}{true} % False removes titles in references
+
+\newboolean{uprightparticles}
+\setboolean{uprightparticles}{false} %True for upright particle symbols
+
+\newboolean{inbibliography}
+\setboolean{inbibliography}{false} %True once you enter the bibliography
+
+\input{preamble}
+
+\usepackage{listings}
+\input{listings}
+
+% Footnotes
+\usepackage[bottom,perpage,symbol]{footmisc}  % [bottom] norule para symbol* marginal perpage ,symbol*
+% KOMA-command, footnotemark not superscripted at the bottom
+\deffootnote[1em]{1em}{0em}{\thefootnotemark\hspace*{.5em}}
+\deffootnotemark{\thefootnotemark}
+\setfnsymbol{bringhurst}   % use symbols recommended by guru Robert Bringhurst 
+\setlength{\footnotemargin}{1em}     
+
+% Some title formatting
+\setkomafont{chapter}{\Huge\sffamily\bfseries}
+\setkomafont{section}{\large\sffamily\bfseries}
+\setkomafont{subsection}{\normalfont\large\sffamily\itshape}
+\setkomafont{subsubsection}{\normalsize\normalfont\sffamily}
+
+% Data
+\title{$title$}
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+
+\begin{document}
+
+\maketitle
+
+$if(abstract)$
+\begin{abstract}
+    $abstract$
+\end{abstract}
+$endif$
+
+
+\linenumbers
+
+$body$
+
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass[11pt,a4paper,DIV=12]{scrartcl}
+
+% Variables that controls behaviour
+\usepackage{ifthen} % for conditional statements
+\newboolean{pdflatex}
+\setboolean{pdflatex}{true} % False for eps figures 
+
+\newboolean{articletitles}
+\setboolean{articletitles}{true} % False removes titles in references
+
+\newboolean{uprightparticles}
+\setboolean{uprightparticles}{false} %True for upright particle symbols
+
+\newboolean{inbibliography}
+\setboolean{inbibliography}{false} %True once you enter the bibliography
+
+\usepackage{listings}
+\input{listings}
+
+% Footnotes
+\usepackage[bottom,perpage,symbol]{footmisc}  % [bottom] norule para symbol* marginal perpage ,symbol*
+% KOMA-command, footnotemark not superscripted at the bottom
+\deffootnote[1em]{1em}{0em}{\thefootnotemark\hspace*{.5em}}
+\deffootnotemark{\thefootnotemark}
+\setfnsymbol{bringhurst}   % use symbols recommended by guru Robert Bringhurst 
+\setlength{\footnotemargin}{1em}     
+
+% Some title formatting
+\setkomafont{section}{\large\sffamily\bfseries}
+\setkomafont{subsection}{\normalfont\large\sffamily\itshape}
+\setkomafont{subsubsection}{\normalsize\normalfont\sffamily}
+
+\title{$title$}
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+\date{}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Title     %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\setcounter{footnote}{1}
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\setcounter{footnote}{0}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% Main text %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{plain} % restore page numbers for the main text
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+$if(linenumbers)$\linenumbers$endif$
+
+$body$
+
+\end{document}

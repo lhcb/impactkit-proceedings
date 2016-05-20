@@ -1,4 +1,4 @@
-And here we write text^[And margin notes].
+And here we write text.
 
 ```python
 def hi():

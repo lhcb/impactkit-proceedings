@@ -1,0 +1,29 @@
+% =============================================================================
+% @file   titling.tex
+% @author Albert Puig (albert.puig@cern.ch)
+% @date   16.02.2016
+% =============================================================================
+% Titling configuration
+\setkomafont{subtitle}{\itshape\LARGE}
+\usekomafont{subtitle}
+
+% Remove the dot at the end of the numbering
+% http://tex.stackexchange.com/questions/202928/remove-last-dot-in-title-numbering
+\renewcommand{\autodot}{}
+
+\ifthenelse{\boolean{extendedtitles}}
+{
+    \setkomafont{section}{\raggedleft\LARGE\sffamily\bfseries}
+    \setkomafont{subsection}{\large\sffamily\bfseries}
+    \setkomafont{subsubsection}{\normalfont\large\itshape}
+}
+{
+    \setkomafont{section}{\raggedleft\LARGE\sffamily\bfseries}
+    \setkomafont{subsection}{\normalfont\large\itshape\bfseries\boldmath}
+    \renewcommand\subsubsection{%
+        \PackageError{\string\subsubsection is undefined and was used.
+        See Robert Bringhurst's _The Elements of Typographic Style_, section 4.2.2.}
+        {If you absolutely need to use \string\subsubsection you need to set the _extendedtitles_ boolean to true.}
+    }
+}
+
