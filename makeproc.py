@@ -110,7 +110,7 @@ def make_proceedings():
     for dir_name in glob.glob(CONTRIB_DIRS):
         pdfs.append(build_single_pdf(dir_name))
     try:
-        if not merge_pdfs('output.pdf', pdfs):
+        if not merge_pdfs('proceedings.pdf', pdfs):
             raise ValueError("cannot merge files!")
     except OSError, excp:
         raise ValueError("Cannot merge files due to missing input -> %s",
