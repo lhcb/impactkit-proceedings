@@ -9,7 +9,7 @@ Given $x = << value >>$, we know that $x^2 = << value**2 >>$.
 
 ```
 
-Papermake uses (Jinja2)[http://jinja.pocoo.org/] to insert values from Python (specifically using pickle files) using a custom syntax:
+Papermake uses [Jinja2](http://jinja.pocoo.org/) to insert values from Python (specifically using pickle files) using a custom syntax:
 
 | syntax | what for |
 |--------|----------|
