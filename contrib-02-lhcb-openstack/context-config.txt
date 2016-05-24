@@ -1,0 +1,21 @@
+#!/bin/sh
+. /etc/cernvm/site.conf
+mkdir /afs
+/sbin/chkconfig afs on
+/sbin/service afs start
+wget http://linuxsoft.cern.ch/cern/slc55/i386/yum/updates/useraddcern-0.3-1.slc5.noarch.rpm
+yum -y install useraddcern-0.3-1.slc5.noarch.rpm
+[amiconfig]
+plugins=cernvm
+
+[cernvm]
+organisations=LHCB
+repositories=lhcb,grid
+shell=/bin/bash
+config_url=http://cernvm.cern.ch/config
+users=default:lhcb:$6$BkNNAXkW$9ToClG4fU6Srqn8MVKJ2TA3k4j0/wXTkSxlOK4il7FhRXsIbSvylCevXmmccTBnYJsxtnIh9kzUEtQbP1g23.0
+edition=Batch
+
+[ucernvm-begin]
+cvmfs_branch=cernvm-prod.cern.ch
+[ucernvm-end]
