@@ -95,7 +95,9 @@ You can now log in with
 ssh default@{host_name}
 and password 
 testtest
-.
+
+Please change the password after login, you can use the command 
+passwd default
 
 Once you are logged in, 
 change the password with
@@ -127,6 +129,8 @@ If you know how to fix (1) or (2) let me know at
 https://gitlab.cern.ch/koschube/lhcb-software-openstack
 or via email to 
 konstantin@schubert.fr
+
+
 """.format(host_name=args.host_name, cern_user=args.cern_user)
 
 print(message)
