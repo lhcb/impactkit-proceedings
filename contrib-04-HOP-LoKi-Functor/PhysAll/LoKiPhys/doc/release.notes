@@ -1,0 +1,1683 @@
+! $Id: release.notes 200920 2016-02-04 20:30:15Z erodrigu $ 
+! -----------------------------------------------------------------------------
+! Package     : Phys/LoKiPhys
+! Responsible : Vanya Belyaev
+! Purpose     : "Phys"-part of new restructurized LoKi 
+! -----------------------------------------------------------------------------
+
+!========================== LoKiPhys v11r7 2016-02-04 =========================
+
+! 2016-01-30 - Vanya Belyaev
+ - LoKiPhys.xml:
+  remove duplicated rules (thanks to Marco Cattaneo)
+
+! 2016-01-25 - Vanya Belyaev
+ - add Graphviz into CMT&CMAKE 
+
+! 2016-01-17 - Vanya Belyaev
+ - LoKiPhys.graph: several improvements 
+
+! 2016-01-16 - Vanya Belyaev
+ - add new module LoKiPhys.graph to produce decay tree graphs 
+
+! 2015-12-30 - Gerhard Raven
+ - replace deprecated std::auto_ptr with std::unique_ptr
+
+! 2015-12-05 - Vanya Belyaev
+ - add CHI2VX, CHI2NDF and CHI2NDOF symbols 
+
+!========================== LoKiPhys v11r6 2015-12-02 =========================
+
+! 2015-11-30 - Wenbin Qian
+  Add class MissingDNeutrino in LoKi cuts
+
+!========================== LoKiPhys v11r5 2015-11-27 =========================
+
+! 2015-11-01 - Gerhard Raven
+ - replace LoKi::select with std::copy_if
+ - replace endreq with endmsg
+ - prefer not to explicitly call default constructors
+ - prefer range-based for loops
+ - prefer emplace over insert
+ - prefer auto
+ - prefer nullptr
+ - avoid comparison of (smart)pointers to 0
+
+!========================== LoKiPhys v11r4 2015-10-16 =========================
+
+! 2015-10-06 - Vanya Belyaev
+  - attempt to speedup decay tree matchers ( aka "descriptors")
+    with optional particles " {} " 
+
+! 2015-08-12 - Gerhard Raven
+ - remove #include of obsolete Gaudi headers
+
+!========================== LoKiPhys v11r3 2015-07-23 =========================
+
+! 2015-07-16 - Ricardo Vazquez Gomez
+ - Added functor to get IsMuonTight of a Particle
+
+! 2015-07-10 - Vanya Belyaev
+ - fix tool printout 
+
+! 2015-07-10 - Vanya Belyaev
+ - add few more signatures for "tracks"-method 
+
+! 2015-06-25 - Vanya Belyaev
+
+ - VRHO  : added for Jessica Prisciandaro
+   
+! 2015-06-22 - Eduardo Rodrigues
+
+ - Removed unused class rules producing warnings in genflex.
+
+! 2015-06-09 - Eduardo Rodrigues
+ - Fixed a few pattern selection rules to please genreflex.
+
+!========================== LoKiPhys v11r2 2015-04-27 =========================
+
+! 2015-04-26 - Vanya Belyaev
+ - add BPVPHI functor 
+
+!========================= LoKiPhys v11r1 2015-03-31 =========================
+
+! 2015-03-25 - Albert Puig
+ - Add functors for Pseudorapidity calculated from the PV->SV direction.
+
+! 2015-03-24 - Vanya Belyaev
+ - Warning -> Error for wrong pid/name in WrongMass functor 
+
+! 2015-03-15 - Roel Aaij
+ - Add copy constructor to LoKi::Particles::Value.
+
+! 2015-03-12 - Vanya Belyaev
+ - add fake sources 
+
+!========================== LoKiPhys v11r0 2015-02-24 =========================
+
+! 2015-02-15 - Vanya Belyaev
+ - add dedicated particle comparions (for N-body decays)
+   extend it a little bit to allow checking of tracks.
+
+! 2015-02-06 - Vanya Belyaev
+ - add missing particle 
+
+! 2015-02-02 - Vanya Belyaev
+ - solve the issuw with late initiazalition 
+
+! 2015-01-29 - Vanya Belyaev
+ - few more steps towards autogeneration of C++ code from functors 
+
+! 2015-01-27 - Vanya Belyaev
+ - few more steps towards autogeneration of C++ code from functors 
+
+
+! 2015-01-22 - Vanya Belyaev
+ - move LoKi::Partiles::DHCoplanarity into LoKi::Legacy::DHCoplanarity
+   move DPCTAU*-related stuff into Legacy
+
+! 2015-01-21 - Vanya Belyaev
+ - minor fix in PID-operators 
+
+! 2015-01-20 - Vanya Belyaev
+ - few more steps towards autogeneration of C++ code from functors 
+
+! 2015-01-19 - Vanya Belyaev
+ - few more steps towards autogeneration of C++ code from functors
+
+!========================= LoKiPhys v10r21 2014-12-15 =========================
+
+! 2014-12-05 - Vanya Belyaev
+ - add helper functions for tis/tos/tps/tus 
+
+!========================= LoKiPhys v10r20 2014-10-30 =========================
+
+! 2014-10-21 - Chris Jones
+ - Add VDT to INCLUDE_DIRS in CMake...
+
+! 2014-10-20 - Chris Jones
+ - General downgrading of various Error and Warning message, to sanitise a bit
+   things for running in production, the Stripping.
+
+! 2014-10-20 - Chris Jones
+ - Add VDT dependency to CMake file.
+
+! 2014-10-15 - Chris Jones
+ - Add protection to TransverseMomentumRel::mCorrDir against badily defined
+   Lorentz vectors that result in a negative M^2.
+ - Use VDT library for fast sin and cos calculations in TransverseMomentumRel
+   constructor from theta and phi values.
+
+!========================= LoKiPhys v10r19 2014-07-25 =========================
+
+! 2014-07-11 - Marco Clemencic
+ - Removed duplicate dictionary entries.
+
+! 2014-07-03 - Anton Poluektov 
+ - Fix warning in dictionary generation
+
+! 2014-07-02 - Vanya Belyaev for Anton Poluektov 
+ - Add RELINFO functor to access RelatedInfo structures in the DST. Usage: 
+     RELINFO ( AbsoluteRelatedInfoLocation', Index, ErrorValue )
+  or (better)
+     RELINFO ( AbsoluteRelatedInfoLocation', Variable, ErrorValue )
+
+   where
+     AbsoluteRelatedInfoLocation: 
+       The location (starting from '/Event/Stream/Phys/...')
+       of the RelatedInfo object. Possible values now used are: 
+         'Particle2CV1Relations', 'Particle2CV2Relations', ... - cone variables 
+           saved by RelInfoConeVariables tool, for cone numbers 1, 2, etc.
+         'Particle2CVEW1Relations', 'Particle2CVEW2Relations', ... - cone variables 
+           saved by RelInfoConeVariablesForEW tool, for cone numbers 1, 2, etc.
+         'Particles2VIRelations' - vertex isolation information saved by 
+           RelInfoVertexIsolation tool
+
+     Index: 
+       Variable index, see Phys/DaVinciTypes/Kernel/RelatedInfoNamed.h enum for 
+       index values
+
+     Variable: 
+       Variable name, see Phys/DaVinciTypes/Kernel/RelatedInfoNamed.h enum for 
+       available variable names
+
+     ErrorValue: 
+       Value to return in case of error (no particle in the map, incorrect location etc.)
+
+   Example: 
+     CONEMULT   = RELINFO('/Event/Charm/Phys/DstarPromptWithD02HHMuMuLine/Particle2CV1Relations','CONEMULT',-1000.)
+     CONEPRASYM = RELINFO('/Event/Charm/Phys/DstarPromptWithD02HHMuMuLine/Particle2CV1Relations','CONEPTASYM',-1000.)
+
+! 2014-06-24 - Albert Puig
+ - Add the MTDOCA and MTDOCACHI2 functors.
+
+! 2014-06-23 - Vanya Belyaev
+ - Adjust NTRACKS to extract #tracks for empty vertices.
+
+!========================= LoKiPhys v10r18 2014-06-13 =========================
+
+! 2014-05-22 - Vanya Belyaev
+ - *DOCA* - Add an explicit treatment of "the same" particles. 
+
+! 2014-05-22 - Vanya Belyaev
+ - Phys.py - minor fix: 
+        Save/backup "old/C++" definition of LHCb::Particle::daughters 
+	Add __nonzero__ operator for some smart references 
+
+!========================= LoKiPhys v10r17p1 2014-04-02 =========================
+
+! 2014-02-21 - Marco Clemencic
+ - Moved (correctly) operators inside namespaces (fixed a problem with ROOT 6).
+
+!========================= LoKiPhys v10r17 2014-02-20 =========================
+
+! 2014-02-13 - Vanya Belyaev
+ - VDOF : return max(ndof,1) 
+ 
+! 2014-02-06 - Marco Clemencic & Vanya Belyaev
+ - Renamed LoKi::Cuts::STAT to LoKi::Cuts::PSTAT (the former name was already
+   used in LoKi/TES.h).
+
+! 2014-02-01 - Vanya Belyaev
+ - add dictionaries for new FuncOps__
+
+! 2014-01-22 - Vanya Belyaev
+ - fix complilation warnings 
+
+! 2014-01-17 - Vanya Belyaev
+ - DOCA* make use of updated IDistanceCalculator interface 
+
+!========================= LoKiPhys v10r16 2013-10-02 =========================
+
+! 2013-09-30 - Pieter David
+ - Decays::Exclusive (and derived): make sure the cache is emptied
+   when no match is found.
+
+! 2013-08-08 Sebastian Neubert
+ - Added VALUE functor. Simple adapter to IParticleValue tools
+   Receives a Particle; Returns a double. 
+   First example application: cut on MVA classifier response through a 
+   DictValue tool (see package MVADictTools).
+
+!========================= LoKiPhys v10r15 2013-06-13 =========================
+
+! 2013-05-27 - Vanya Belyaev 
+ - (Re)Enable very important error message for IDistanceCalculator::distance.
+
+! 2013-05-24 - Chris Jones
+ - Fix UNINT_CTOR Coverity warning.
+
+!========================= LoKiPhys v10r14 2013-05-07 =========================
+
+! 2013-04-22 - Chris Jones
+ - Fix compilation with clang, by adding missing default constructors
+
+! 2013-04-12 - Marco Clemencic
+ - Fixed an error that was causing a segfault in clang++.
+
+! 2013-04-11 - Vanya Belyaev
+ - Particles35.cpp: bug fix 
+
+! 2013-04-09 - Vanya Belyaev
+ - Photons.cpp: bug fix 
+
+!========================= LoKiPhys v10r13 2013-02-20 =========================
+
+! 2013-02-15 - Vanya Belyaev
+ - Fix definition of VPCHI2 symbol. Thanks to Conor Fitzpatrick 
+
+! 2013-02-01 - Vanya Belyaev
+ - Allow four indices for MASS-functor 
+
+!========================= LoKiPhys v10r12p1 2012-11-30 =========================
+
+! 2012-11-29 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= LoKiPhys v10r12 2012-07-26 =========================
+
+! 2012-07-25 - Vanya Belyaev
+ - Add "sum-in-cone" functors... 
+
+! 2012-07-23 - Vanya Belyaev
+ - Add possibility of mass constrains to non-standard mass(e.g. sideband) 
+ 
+! 2012-07-19 - Chris Jones
+ - Fix a bug in LoKi::Particles::IsMuon::muonPID which could result in a 
+   random uninitialised value of the Status Word being used.
+
+!========================= LoKiPhys v10r11 2012-06-28 =========================
+
+! 2012-06-16 - Vanya Belyaev
+ - Extend a bit the the method "child" 
+
+! 2012-06-08 - Vanya Belyaev
+ - Remove legacy stuff 
+
+! 2012-06-08 - Vanya Belyaev  
+ - Add the functors for easy (but inefficient) dealing with Tis/Tos-tools 
+
+! 2012-05-29 - Vanya Belyaev
+ - Add VCOV2 functor to access the vertex covariance matrix 
+
+! 2012-05-24 - Vanya Belyaev
+ - Improve interactive decorators 
+ - Fix typo for M24 
+
+!========================= LoKiPhys v10r10 2012-05-24 =========================
+
+
+!========================= LoKiPhys v10r9 2012-04-17 =========================
+
+! 2012-03-31 - Vanya Belyaev
+ - add "anti-clone"-functors for Walter Bonivento 
+
+! 2012-03-30 - Vanya Belyaev
+ - reshuffle beam-line/beam-spot functors 
+ - issue warnings for legacy functors 
+
+!========================= LoKiPhys v10r8 2012-03-17 =========================
+
+! 2012-03-12 - Pieter David
+ - Add functor to BeamLineFunctions to calculate the DOCA to the beamline,
+   using LoKi::FastVertex
+
+!========================= LoKiPhys v10r7 2012-03-01 =========================
+
+! 2012-02-27 - Vanya Belyaev
+ - Add SINFO and VSINFO : "smart info" functors
+
+!========================= LoKiPhys v10r6 2012-02-03 =========================
+
+! 2012-01-29 - Vanya Belyaev
+ - Add dumping functors 
+
+! 2012-01-18 - Vanya Belyaev
+ - Add few "distance" functors
+    MINDR2  (for Albert Bursche and Cedric Potterat)
+    MAXDR2
+    MINKL 
+    MINANGLE 
+    MAXIDS 
+    MINM2 
+
+!========================= LoKiPhys v10r5 2011-12-15 =========================
+
+! 2011-11-23 - Vanya Belyaev
+ - add RV_P and RV_PT 
+
+! 2011-11-20 - Vanya Belyaev
+ - small imporvements for pi0-veto 
+
+! 2011-11-20 - Vanya Belyaev
+ - fix for gcc46 compiler 
+
+!========================= LoKiPhys v10r4 2011-09-07 =========================
+! 2011-07-29 - Vanya Belyaev
+ - fix in LHCb.Particle.Selection decorators 
+
+!========================= LoKiPhys v10r3 2011-07-28 =========================
+! 2011-07-23 - Vanya Belyaev
+
+ - fix signature of TRFUN/TRCUT adapters 
+
+! 2011-07-20 - Vanya Belyaev
+
+ - add BeamLine functions from LoKiTrigger 
+
+! 2011-07-03 - Vanya Belyaev
+
+ - minor polishing of iterators 
+
+!========================= LoKiPhys v10r2 2011-06-16 =========================
+! 2011-06-06 - Vanya Belyaev
+ - more fixes for ICC compiler 
+
+! 2011-06-04 - Vanya Belyaev
+ - add utilities for better printout 
+
+!========================= LoKiPhys v10r1 2011-05-13 =========================
+! 2011-04-29 - Roel Aaij
+ - Set instant suppression to VertexDistance::chi2 error message to not display
+   but count error messages.
+
+! ========================== LoKiPhys v9r99 2011-03-18 =========================
+! 2011-03-18 - Gerhard Raven 
+ - tag as v9r99 to keep CMT happy when including it in Moore...
+
+! ========================== LoKiPhys v10r0 2011-03-17 =========================
+! 2011-03-17 - Roel Aaij
+ - Add SinkTES with python symbol RV_SINKTES; it puts a container of 
+   LHCb::RecVertex in the TES.
+
+! 2011-03-15 - Vanya Belyaev
+
+ - add symbol : RV_TrFUN 
+
+    adapter for track-function 
+
+
+! 2011-03-10 - Vanya Belyaev
+ - kill bad concept of 'Element'-functor
+ - cmt/requirements 
+    version increment to v10r0 
+ 
+! ========================== LoKiPhys v9r9 2011-02-20 =========================
+
+! 2011-02-17 - Vanya Belyaev
+ - remove LoKi::Cuts::COUNTER typedef 
+
+! 2011-02-11 - Chris Jones
+ - Fix a few trivial icc warnings/remarks.
+
+! ========================== LoKiPhys v9r8 2011-01-28 =========================
+
+! 2011-01-26 - Vanya Belyaev
+
+ - LoKi/Vertices1.h, LoKi/Particles10.h
+
+    add "missing" include for LHCb::RecVertex 
+
+    it prevents the compilation for "minimal" configuration 
+
+
+- cmt/requirements 
+
+    version increment to v9r8 
+
+! ========================== LoKiPhys v9r7 2011-01-18 =========================
+
+! 2011-01-16 - Vanya Belyaev
+
+ - add for all DTF_* functors the optional embedded cut on chi2(DTF)/nDoF
+   it allows to avoid the double fit, and thus one can 
+   be more efficient, e.g. 
+         
+    
+       DTF_FUN ( M , True , 5 , -1 * TeV ) 
+
+   it will perform the refit of decay tree, and in case of chi2(DTF)/nDoF<5, 
+  return -5 TeV, otherwie it will evaluate the functor M 
+  
+   it is formally equivalent to :
+
+     switch ( DTF_CHI2NDOF( True ) < 5 , DTF_FUN( M , True ) , -1 * TeV )
+ 
+   howeever it is twice more efficient 
+     
+
+! 2011-01-12 - Vanya Belyaev
+
+ - add new symbol:
+
+    CLONEDIST - accessor to LHcb::Track::CloneDist 
+
+ - cmt/requirements 
+
+    version increment to v9r7 
+
+! ========================== LoKiPhys v9r6 2010-12-17 =========================
+
+! 2010-12-10 - Vanya Belyaev
+
+ - add new symbol 
+
+     NSHAREDMU : number of shared hits in muon system 
+
+! 2010-12-09 - Vanya Belyaev
+
+ - new symbols 
+
+    - PCOV2   : generic acessor to elements of particle 7x7 covariance matrix 
+    - PERR2   : sigma^2(P)
+    - PTERR2  : sigma^2(PT)
+    - M2ERR2  : sigma^2(M^2) 
+
+
+! 2010-12-07 - Vanya Belyaev
+ - Vertices3.cpp 
+    remove debug prints 
+
+! 2010-12-07 - Vanya Belyaev
+ - add "mass of recontructed vertex" functor 
+     RV_MASS 
+
+! 2010-12-06 - Vanya Belyaev
+ 
+ - add functions to deal with rec-vertices
+
+! 2010-12-05 - Vanya Belyaev
+
+ - add functions to deal with rec-vertices
+
+    RV_TrMIN 
+    RV_TrMAX
+    RV_TrNUM 
+    RV_TrSUM
+    RV_TrFUN
+    RV_TrHAS
+    RV_TrCUT
+
+! 2010-12-05 - Vanya Belyaev
+ - fix typo 
+
+! 2010-12-04 - Vanya Belyaev
+
+ - new symbols :
+
+     ISVERTEX    : check if the actual vertex type is LHCb::Vertex 
+     ISRECVERTEX : check if the actual vertex type is LHCb::RecVertex 
+
+     PROBNNe,PROBNNmu,PROBNNpi,PROBNNk,PROBNNK and PROBNNp
+     new NN-based variables for PID by Chris Jones 
+
+ - cmt/requirements 
+     version inctrement to v9r6
+
+! 2010-11-30 - Vanya Belyaev
+
+ - SelectVertex:
+    patch the problem with Reflex/C++ overloading 
+
+! 2010-11-07 - Vanya Belyaev
+
+ - improve a little bit Particles(8,9&11).h(&.cpp)
+   
+   1. shrink some common line 
+   2. use inheritance 
+   3. make use of boost::lambda instead of home-made functors 
+   (unfortunately now is reuslt in long compilaiton warnings,
+    lets home it will be better with new Boost)
+
+
+! 2010-11-04 - Vanya Belyaev
+
+  - remove obsolete ugly documentation lines 
+
+ - cmt/requirements 
+     version inctrement to v9r5p1
+
+! ========================== LoKiPhys v9r5 2010-11-02 =========================
+
+! 2010-11-01 - Vanya Belyaev
+
+ - fix the python problem for slc4-platform
+ - undo split of the dictionary 
+
+
+! 2010-10-24 - Vanya Belyaev
+
+ - introduce the concept of stable particle in decay descriptors
+ - split Reflex dictionary into two libraries 
+
+
+! 2010-10-23 - Vanya Belyaev
+
+ - new functors (similar to ``decay-length-significance'' by Roel & wouter, 
+    but based on IDistanceCalculator::(path|projected)Distance methods) 
+
+  ``Path-Distance''-related 
+
+       PATHDIST      - distance 
+       PATHDISTCHI2  - chi2 
+       PDS           - significance 
+
+       BPVPATHDIST 
+       BPVPATHDIST_
+       BPVPATHDISTCHI2 
+       BPVPATHDISTCHI2_
+       BPVPDS 
+       BPVPDS_
+
+  ``Projected-Distance''-related 
+
+       PROJDIST  - distance 
+       PROJDS    - significance 
+
+       BPVPROJDIST 
+       BPVPROJDIST_ 
+       BPVPROJDS
+       BPVPROJDS_
+ 
+
+! 2010-10-23 - Vanya Belyaev
+
+ - new functors ( see task #17418 )
+    	
+    a family of functors (thanks to Mike Williams) to deal with 'corrected mass'
+    ( for definition of 'corrected mass' see Mike's presentation 
+       at Trigger Session  28 September 2010 ) 
+
+     PTFLIGHT    ( type     ) - evaluate the transverse momentum with respect 
+                                to the particle fligth direction 
+     BPVPTFLIGHT ( instance ) - evaluate the transverse momentum with respect 
+                                to particle fligth direction using 
+                                'the best primary vertex' as origin vertex 
+                               for the particle  
+     CORRM       ( type     ) - evaluate the 'corrected mass' with respect 
+                                to the particle fligth direction 
+     BPVCORRM    ( instance ) - evaluate the 'corrected mass' with respect 
+                                to particle fligth direction using 
+                                'the best primary vertex' as origin vertex 
+                                for the particle  
+
+
+! 2010-10-08 - Marco Clemencic
+ - Minor change to fix an ICC remark tha was appearing in the nightlies as an
+   error.
+
+! 2010-10-02 - Vanya Belyaev
+
+ - LoKi/Particles26.h
+     fix the bug with evaluation of DOCAMAXCHI2
+     Thanks to Liming Zhang for reporting the problem
+
+ - cmt/requirements 
+     version inctrement to v9r5 
+
+
+! ========================== LoKiPhys v9r4 2010-09-29 =========================
+
+! 2010-09-19 - Vanya Belyaev
+ - fix ALL/PALL/TRUE/FALSE problem
+
+! 2010-09-14 - Vanya Belyaev
+
+ - Phys.py:
+
+     add functions  
+
+      p.vertex      () : alias for p.endVertex () 
+      p.decayVertex () : alias for p.endVertex () 
+
+
+ - functions.py
+
+     fix the typos (cut-n-paste) for PFUNA and PFUNV 
+
+ - cmt/requirements 
+ 
+     version increment to v9r4
+
+! 2010-08-31 - Vanya Belyaev
+
+ - add 'c_light' 
+
+ - cmt/requirements 
+ 
+     version increment to v9r3p2
+
+
+! ========================== LoKiPhys v9r3p1 2010-08-26 =======================
+
+! 2010-08-24 - Gerhard Raven
+ - set max printout for some errors to 0
+
+! ========================== LoKiPhys v9r3 2010-08-19 =========================
+
+! 2010-08-07 - Vanya Belyaev
+
+ - resurrect DECTREE symbol 
+
+! 2010-08-03 - Vanya Belyaev
+
+ - add more functionality into "LifeTime"-functors 
+
+   From now one can specify the optional argument in 
+   constructor "chi2cut". In case of any positive value 
+   the evaluation e.g. of lifetime or lifetime-chi2 or signed
+   lifetime-chi2 is performed using embeded cut on chi2 of lifetiem fit.
+   in case of chi2 of lifetiem fit exceed the predefined POSITIVE value , 
+
+    - the lifetime             evaluator returns LoKi::Constants::InvalidTime 
+    - the lifetime-chi2        evaluator returns LoKi::Constants::InvalidChi2 
+    - the signed lifetime-chi2 evaluator returns LoKi::Constants::InvalidChi2 
+
+   As a result, instead of 
+
+       xxx.Code = " ( BPTLTFITCHI2() < 9 ) & ( BPVLTIME() > 1 * ps ) "
+
+   One can use more compact & equivalent way:
+
+       xxx.Code = " BPVLTIME ( 9 ) > 1 * ps  "
+
+
+
+! 2010-08-03 - Vanya Belyaev
+
+ - Particles6.cpp
+
+    bug fix in CHILD functor 
+    
+     " CHILD( fun , index ) " was correct, 
+       while " CHILD( index , fun )" was buggy
+
+    thanks to Steve Blusk for pointing to the problem.
+
+
+! 2010-07-12 - Roel Aaij
+ - Added two new and related functors: DLS and BPVDLS
+
+   They calculate the decay length significance of a particle. This is defined
+   as the distance the particle travelled, projected onto its momentum and
+   devided by the error on this number. Actual lines came from Wouter Hulsbergen.
+
+   DLS calculates the decay length significance with respect to the vertex
+   which the functor contains.
+
+   BPVDLS gets the related vertex of the particle and calculates the decay
+   length significance with respect to that vertex.
+
+! ========================== LoKiPhys v9r2 2010-06-24 =========================
+
+! 2010-06-10 - Vanya Belyaev
+
+ - IsMuon, IsMuonLoose, InMuonAcceptance :
+
+    give the functor chance:
+     in case of NULL MuonPID object, 
+     use ProtoParticle::ExtraInfo 
+
+! 2010-06-09 - Vanya Belyaev
+ - fix in AuxDTFBase 
+
+! 2010-06-08 - Vanya Belyaev
+ - new symbols
+
+    DTF_CHI2 
+    DTF_NDOF 
+    DTF_CHI2NDOF 
+    DTF_PROB
+
+! 2010-06-04 - Vanya Belyaev
+
+ - add functions to deal with decay tree tuple 
+
+     DTF_FUN - generic adapter 
+     DTF_CUT - generic adapter 
+     DTF_CTAU 
+     DTF_CTAUERR 
+     DTF_CTAUSIGNIFICANCE  
+
+
+! 2010-06-02 - Vanya Belyaev
+ -  add new symbols for calculaitons 
+   cos(theta_tr)
+   sin(phi_tr) 
+   cos(phi_tr)
+   phi_tr 
+
+! 2010-06-02 - Juan Palacios
+ - Particles15, LoKiPhys, Particles
+  . IFilterCriterion -> IParticleFilter.
+
+! 2010-05-30 - Vanya Belyaev
+
+ - Child::Selector: selector for child particles  
+
+! 2010-05-28 - Vanya Belyaev
+
+ - Particles35.h/Particles35.cpp
+
+      add adaptor functions for ProtoParticles and Track 
+
+
+! 2010-05-27 - Vanya Belyaev
+
+ - GetTools: 
+    move into separate package Phys/LoKiUtils  
+
+! ========================== LoKiPhys v9r1 2010-05-24 =========================
+
+! 2010-05-15 - Vanya Belyaev
+ - add symbols DPCTAU, DPCTAUERR, DPCTAUFITCHI2 , DPCTAUSIGINFICANCE for 
+    Kazu Karvalho Akiba 
+
+   ' DPCTAU(2) > 0.1 * mm '       
+
+! 2010-05-14 - Vanya Belyaev
+
+ - changes for IDVAlgorithm
+   
+
+! 2010-05-14 - Juan Palacios
+ - AuxDesktopBase, Particles25, PhysSources
+  . Adapt to change in IPhysDesktop::primaryVertices() signature.
+
+! 2010-05-07 - Vanya Belyaev
+  
+ - update "WrongMass" functor to take into account the extrapolation of 
+   daughter particles. Now the resutls are much more precise.
+   It still donot take into acocutn e.g. vertex constrainst, etc. but 
+   now it is OK for e.g. longlived particles,like K0S, Lambda0, etc..
+   
+
+
+! 2010-05-05 - Vanya Belyaev
+
+ - fix bug #63474 
+ - improve treatment of tools 
+ - cmt/requirements 
+  
+      version increment to v9r1 
+ 
+
+! ========================== LoKiPhys v9r0 2010-04-30 =========================
+
+! 2010-04-13 - Vanya Belyaev
+
+ - replace LoKi.NamedRange_ with Gaudi.NamedRange_
+
+! 2010-04-06 - Vanya Belyaev
+
+ - replace LoKi::Range with Gaudi::Range
+ - improve decorators 
+ - add more operators  
+ - version increment to v9r0 
+
+
+! 2010-03-31 - Vanya Belyaev
+
+ - fix for LoKi::Particle::Filter 
+
+ - cmt/requirements 
+
+    version increment to v8r15 
+
+! ========================== LoKiPhys v8r14 2010-02-26 ========================
+
+! 2010-02-22 - Vanya Belyaev
+
+ - LoKi/Particles33.h, src/Particles33.cpp
+ 
+  new symbols, suitavle for angular analyses:
+
+     COSPOL     LoKi::Particles::PolarizationAngle
+                allows to evalaute the (cosine) polarization angle 
+                of daughter particle.
+
+     SINCHI     LoKi::Particle::SinChi
+                define sin(chi), where chi is the angle between decay planes 
+
+     COSCHI     LoKi::Particle::CosChi
+                define sin(chi), where chi is the angle between decay planes 
+
+     ANGLECHI   LoKi::Particle::AngleChi
+                define chi : the angle between decay planes 
+ 
+
+! 2010-02-19 - Vanya Belyaev
+
+ - new symbol : BPV  LoKi::Particles::BestPrimaryVertexAdaptor, 
+    adaptor to "best-related-priamry-vertex":
+
+       BPV ( VZ ) - z-coordiate of related primary vertex 
+
+ - remove many explicit usage of IPhysDesktop
+
+ - cmt/requirements 
+
+    version increment to v8r14 
+
+
+! ========================== LoKiPhys v8r13 2010-01-20 ========================
+! 2010-01-17 - Vanya Belyaev
+
+ -  add new symbols:
+
+      Y  for rapidity    (Pz)
+      Y0 for rapidity    (P)
+
+! 2010-01-14 - Vanya Belyaev
+
+ - add new symbols:  
+     
+     DECNODE, that acts on ParicleID and allwos to select the 
+     particles accoridng to their type using  Decays::iNode utilities 
+    
+   e.g. DECNODE ( PartProp.Nodes.Lepton & PartProp.Nodes.Positive , True ) 
+        DECNODE ( PartProp.Nodes.Meson  & PartProp.Nodes.Charm    , True ) 
+        DECNODE ( PartProp.Nodes.Beauty & PartProp.Nodes.Positive , True ) 
+
+   Few prede fined instances are provides:
+
+   # any charged lepton:
+
+    PELL      :   DECNODE ( PartProp.Nodes.Ell    , True )
+    PLEPTON   :   DECNODE ( PartProp.Nodes.Lepton , True )
+    PHADRON   :   DECNODE ( PartProp.Nodes.Hadron , True )
+    PMESON    :   DECNODE ( PartProp.Nodes.Meson  , True )
+    PBARYON   :   DECNODE ( PartProp.Nodes.Baryon , True )
+    PBEAUTY   :   DECNODE ( PartProp.Nodes.Beauty , True )
+    PCHARM    :   DECNODE ( PartProp.Nodes.Charm  , True )
+
+  The symbols and their operations are defined in PartProp.Nodes module ad described in details at: 
+    
+      https://twiki.cern.ch/twiki/bin/view/LHCb/FAQ/LoKiTreeNode#Decay_Tree_Nodes
+
+
+! 2010-01-08 - Vanya Belyaev
+
+ - LoKi/Particles12.h
+   src/Particles12.cpp
+   
+      add new functor LoKi::Particles::InMuonAcceptance, symbol: INMUON 
+      to check :is in muon acceptance" condition using LHCb::MuonPID::InAcceptance
+
+      Many thanks to Gaia LANFRANCI for kind help!   
+
+ - cmt/requirements 
+
+    version increment to v8r13
+
+! 2010-01-03 - Vanya Belyaev 
+
+ - LoKi/Vertices1.h
+   LoKi/Particles4.h
+
+      fix compiler warnings 
+
+ - cmt/requirements 
+
+    version increment to v8r12p1 
+
+! ========================== LoKiPhys v8r12 2009-12-11 ========================
+! 2009-11-28 - Vanya Belyaev
+
+ - LoKi/Photons.h, src/Photons.cpp
+
+   add new functions (copy form Kali) very useful for analysis phtoon candidates 
+   for the first data 
+
+ - cmt/requirements 
+
+    version increment to v8r12 
+ 
+! ========================== LoKiPhys v8r11 2009-11-22 ========================
+! 2009-11-19 - Marco Clemencic
+ - Fixed a problem with the generation of the documentation (LaTeX error)
+
+! 2009-11-18 - Vanya Belyaev
+
+ - add CHILDIP     functor for Mat Charles 
+   add CHILDIPCHI2 functor
+
+! 2009-11-17 - Vanya Belyaev
+
+ - PhysTypes.h
+
+    add VCutVals & CutVal 
+ 
+
+! 2009-11-16 - Vanya Belyaev
+
+ - add Phys/ATypes.h from LoKiArrayFunctors package 
+
+ - add adapetrs:
+
+     P(FUN/CUT)(A/V) 
+
+ - cmt/requirements 
+  
+     version increment to v8r11 
+   
+
+! ========================== LoKiPhys v8r10 2009-10-16 ========================
+! 2009-10-02 - Vanya BELYAEV
+ - New symbols for Chris & Co
+     1. "track ghost probablity"    LoKi::Particles::GhostProbability, 
+         TRGHP & TRGHOSTPROB 
+     2. "track likelihood"          LoKi::Particles::TrackLikelihood, 
+         TRLH  & TRLIKELIHOOD 
+
+! 2009-09-26 - Vanya BELYAEV
+ - add ISMUONLOOE & ISLOOSEMUON for Alessio Sarti 
+ - cmt/requirements 
+    verison increment to v8r10 
+
+! ========================== LoKiPhys v8r9 2009-09-02 =========================
+! 2009-09-02 - Marco Cattaneo
+ - Remove obsolete file src/Components/LoKiPhys_dll.cpp
+
+! 2009-08-13 - Vanya BELYAEV
+
+ - substitute assertions by error messages for BPV*LT* functors 
+
+! 2009-08-12 - Vanya BELYAEV
+
+ - add useful typedef  
+
+! ========================== LoKiPhys v8r8 2009-07-09 =========================
+! 2009-07-09 - Vanya BELYAEV
+
+ - add additional indices for CHILD and CHILDCUT functors  (for Marta) 
+
+ - cmt/requirements 
+    version increment to v8r8 
+
+! ========================== LoKiPhys v8r7 2009-06-29 =========================
+! 2009-06-28 - Vanya Belyaev
+ - improvement for decay finder 
+ - cmt/requirements 
+    version increment to v8r7 
+
+! ========================== LoKiPhys v8r6 2009-06-16 =========================
+! 2009-06-02 - Vanya BELYAEV
+ - further polishing of decay finder 
+
+! 2009-05-27 - Vanya  BELYAEV
+ - LoKi::Decay
+     new decay finder tool
+
+ - cmt/requirements
+     version increment to v8r6
+
+! ========================== LoKiPhys v8r5 2009-05-25 =========================
+! 2009-05-25 - Vanya Belyaev
+ - dict/LoKiPhys.xml
+      fix a typo
+
+! 2009-05-14 - Vanya Belyaev
+ - cleanup the trees 
+
+! 2009-05-13 - Vanya Belyaev
+ - patch to fix the conflict between SmartIF & LoKi::Interface  
+
+! 2009-05-11 - Vanya Belyaev
+ - fix for changes in Kernel/PartProp
+
+! 2009-05-09 - Vanya BELYAEV
+ - remove unnesessary std::unary/binary_function bases 
+ - cmt/requirements
+   version increment to v8r5
+
+! ========================== LoKiPhys v8r4 2009-05-06 =========================
+! 2009-05-06 - Vanya BELYAEV
+ - few improvements for new decay finder 
+
+! 2009-04-30 - Vanya BELYAEV
+ - new symbol for Jaap Panman:
+      BPVDVDOCA
+
+! 2009-04-30 - Vanya BELYAEV
+ - New symbols for Olivier Leroy
+
+      REFIT_ 
+      MFIT_ 
+    
+      REFIT 
+      REFITTER
+      MFIT
+      MFITTER 
+      MASSFIT
+
+   Using these symbodl one is able to performe various 
+   vertex/mass/lifetime/direction (re)fits  
+
+
+! 2009-04-29 - Vanya BELYAEV
+ - New symbols:
+
+    LTIMEERR 
+    BPTLTERR 
+
+! 2009-04-28 - Vanya BELYAEV
+
+ - LoKi/Particles26.h: 
+    bug fix in DOCA::docamax & DOCA::docamaxchi2 
+
+! 2009-04-24 - Vanya BELYAEV
+  LoKi/Particles26.h, src/Particles26.cpp
+   new files with new symbols (requested by Rob Lambert)
+
+    DOCA 
+    DOCACHI2 
+    DOCAMAX 
+    DOCAMAXCHI2
+    DOCAMAX_ 
+    DOCAMAXCHI2_
+    
+  LoKi/ParticleCuts.h
+    remove all *DOCA* duplicates , only *CLAPP* are here from now..
+
+! ========================== LoKiPhys v8r3 2009-03-23 ===================
+! 2009-03-11 - Vanya BELYAEV
+
+ - dict/LoKiPhys.xml 
+
+    fix to prevent geenration of dictionaries for disabled 
+    assignment operators  
+
+
+! 2009-03-10 - Patrick SPRADLIN
+
+- add new functors:
+
+   TRGPOINTINGWPT     the original version of the trigger pointing cut. 
+                        Implemented in the Legacy section.
+   BPVTRGPOINTINGWPT  Related primary vertex version of the above.
+   TRGPOINTING        A version of the trigger pointing cut that uses the
+                        transvserse momenta of the daughters with respect to
+			the particle's displacement vector, rather than with
+			respect to the z-axis.
+   BPVTRGPOINTING     Related primary vertex version of the above.
+
+- cmt/requirements
+
+   version increment to v8r3
+
+!========================== LoKiPhys v8r2 2009-02-18 ==========================
+! 2009-02-11 - Vanya BELYAEV 
+ 
+- add new functors:
+
+   HASTRACK  to check the validity of the track fore the particle
+   TINFO/TRACKINFO to access "extra-info" for the underlying track 
+
+ - cmt/requirements 
+
+   version increment to v8r2 
+
+
+!========================== LoKiPhys v8r1 2009-01-08 ==========================
+! 2008-12-17 - Vanya  Belyaev
+
+ - add the first tree-functions 
+ 
+
+! 2008-12-03 - Vanya BELYAEV
+
+ - new symbols:
+
+    -  DWMASS &  DWM : delta wrong mass
+    - ADWMASS & ADWM : absolute valeu for delte wrong mass 
+
+
+! 2008-11-27 - Vanya BELYAEV
+ - add QMTest 
+ - polish filters 
+ - version increment to v8r1 
+
+
+!========================== LoKiPhys v8r0 2008-11-21 ==========================
+! 2008-11-21 - Marco Cattaneo
+ - Fix frustrating typos in Latex comments that break doxygen generation
+
+! 2008-11-02 - Vanya BELYAEV
+ - more fixes for various compilers 
+ - remove unnesessary assignements form dictionaries 
+   (and from the code)
+
+! 2008-10-31 - Vanya BELYAEV
+ - dirty fixes for the starnge behavour of reflex in LCG-preview 
+
+
+! 2008-10-29 - Vanya BELYAEV
+ - fixes for gcc43 compilation 
+
+
+! 2008-10-28 - Juan PALACIOS
+ - src/PhysSources.cpp
+  . Adapt to change to new IPhysDesktop::primaryVertices() method.
+
+! 2008-10-19 - Vanya BELYAEV
+  - adaptation to new Phys/LoKiCore v8r0
+
+     new structure of decorators 
+
+ - cmt/requirements 
+   version incrmeent to v8r0 
+
+! 2008-10-13 - Vanya BELYAEV
+ - LoKi/Particles23.h
+   src/Particle23.cpp
+   python/LoKiPhys/functions.py 
+
+   new functor
+
+    WM & WMASS  LoKi::Particles::WrongMass 
+
+       evaluatethemass of mothe rparticles taking the alternative 
+       'wrong'-mass hypotheses for daughter particles
+
+  - cmt/requirements 
+
+    version increment to v7r9 
+
+!========================== LoKiPhys v7r8 2008-09-30 ==========================
+! 2008-09-29 - Vanya BELYAEV
+ - new functors 
+
+    D2DVVD          LoKi::Particles::DaughterVertexVertexDistance:
+            3D-vertex-vertex distance between vertices in the cascade decay
+    D2DVVDCHI2      LoKi::Particles::DaughterVertexVertexDistanceChi2:
+            chi2-vertex-vertex distance between vertices in the cascade decay
+    D2DVVDCHI2SIGN  LoKi::Particles::DaughterVertexVertexDistanceSignedChi2:
+            signed chi2-vertex-vertex distance between evrtices in the cascade decay, 
+            the sign is according to (v1-v2)*p1 
+    D2DVVDDOT      LoKi::Particles::DaughterVertexVertexDistanceDot:
+            'dot'-vertex-vertex distance between vertices in the cascade decay
+            (== projected distance on the momentum direction of the first component)
+    D2DVVDSIGN  LoKi::Particles::DaughterVertexVertexSignedDistance:
+            signed 3D-vertex-vertex distance between vertices in the cascade decay, 
+            the sign is according to (v1-v2).Z() 
+   
+  new files:
+    LoKi/Particle22.h, src/Particles22.cpp
+
+! 2008-09-23 - Vanya BELYAEV
+
+ - new functors:
+
+     NMASS       LoKi::Particles::NominalMass          : get Nominal/PDG mass 
+     DPDGM       LoKi::Particles::DeltaNominalMass     : get (mass-nominal_mass) 
+     DPDGMASS    LoKi::Particles::DeltaNominalMass     : get (mass-nominal_mass)
+     ADPDGM      LoKi::Particles::AbsDeltaNominalMass  : get |mass-nominal_mass| 
+     ADPDGMASS   LoKi::Particles::AbsDeltaNominalMass  : get |mass-nominal_mass|
+     CHI2PDGM    LoKi::Particles::DeltaNominalMassChi2 : get chi2(mass-nominal_mass)
+     CHI2PDGMASS LoKi::Particles::DeltaNominalMassChi2 : get chi2(mass-nominal_mass)
+
+  
+
+! 2008-09-21 - Vanya BELYAEV
+
+ - add the functor ARMENTEROS for evaluation of armenteros-podolanski 
+   variable
+
+!========================== LoKiPhys v7r7 2008-09-04 ==========================
+! 2008-08-07 - Vanya BELYAEV
+
+ - python/LoKiPhys/functions.py
+
+    add missing LV0, LV01, LV02, LV03 & LV04 symbols 
+    Many thanks to Ulrich Kerzel for reporting the problem
+
+- cmt/requirements
+
+    version incremen to v7r7 
+
+
+!========================== LoKiPhys v7r6 2008-07-16 ==========================
+! 2008-07-09 - Vanya BELYAEV
+ - LoKi/Decays.h
+   src/Decays.cpp
+
+    many changes for Decay Finder 
+
+- cmt/requirements 
+
+    version incrtement to v7r6 
+
+
+!========================== LoKiPhys v7r5 2008-06-30 ==========================
+! 2008-06-25 - Vanya BELYAEV
+ - src/PhysSources.cpp
+
+   LoKi::*::*Sources : 
+     suppress warning messages for the used used DVAlgorithms.
+     use "alg->debug()" instead 
+     (thanks to Alison Bates & Patrick Koppenburg for spotting 
+      the problem and providing the idea for solution)
+
+
+! 2008-06-20 - Vanya BELYAEV 
+ - add new function 
+    LoKi::Vertices::VertexChi2PerDoF 
+  for evaluation on of chi2/nDoF 
+  C++ symbol VCHI2PDOF and python symbol VCHI2PDOF are introudes
+  
+   As concern "CombineParticles" it 
+   helps to substitute "VSAFPS(VCHI2/VDOF)" with "VFASPF(VCHI2PDOF)"
+   and saves one virtual call
+ 
+
+! 2008-06-12 - Vanya BELYAEV
+
+ - LoKi/Decays.h
+   src/Decays.h
+
+    Implementation of "trees" (functors which acts on the decay structure),
+    needed for new implementation of DecayFinders
+
+ - cmt/requirements    
+     version increment to v7r5 
+
+!========================== LoKiPhys v7r4 2008-06-03 ==========================
+! 2008-06-03 - Marco Cattaneo
+ - Remove obsolete macro from requirements
+ - Fix many doxygen warnings
+
+! 2008-06-03 - Vanya BELYAEV
+ - LoKi/Legacy1.h, src/Legacy1.cpp
+   new files
+   add new legacy function for incorrect evaluation of "vertex separation 
+   significance" as a distance between vertices, divided by error.
+   The functor is required by Vava, and one has said that it is  useful 
+   for detailed comparison with DC04 selections. 
+   The symbol is defined as 
+   BPVVDS_LEGACY ( "BPV" stays here for "Best Primary Vertex" and 
+   "VDS" - "Vertex Distance Significance") 
+
+ - cmt/requirements 
+   version incremenet to v7r4 
+
+!========================== LoKiPhys v7r3 2008-05-05 ==========================
+! 2008-05-04 - Vanya BELYAEV
+
+ - LoKi/Sections.h
+   src/Sections.cpp
+  
+     add "sections" for the decay trees 
+  
+  LoKi/ImpParBase.h
+  LoKi/ImpactParamTool.h
+  LoKi/Particles20.h
+  LoKi/Particles3.h
+  src/ImpParBase.cpp
+  src/ImpactParamTool.cpp
+  src/Particles20.cpp
+  src/Particles3.cpp
+  src/Particles4.cpp
+
+  remove *all* occurences of IGeomDispCalculator and 
+  substitute them with IDistanceCalculator 
+
+! 2008-04-22 - Vanya BELYAEV
+ - python/LoKiPhys/functions.py
+   python/LoKiPhys/decorators.py
+
+   fix a stupid bug with ISLONG/ISDOWN/IS<XXX> functors. 
+   Thanks to Vava for the reporting the problem.
+
+!========================== LoKiPhys v7r2 2008-04-10 ==========================
+! 2008-04-10 - Vanya BELYAEV
+ - LoKi/Particles13.h, src/Particles13.cpp
+   add new functor LoKi::Particles::TrackChi2Prob, which evaluates the
+   chi2-probability of the track fit using GSL routine.
+ - LoKi/ParticleCuts.h, 
+   python/LoKiPhys/functions.py 
+    add the symbol TRPCHI2 for LoKi::Particles::TrackChi2Prob instance  
+
+! 2008-03-30 - Vanay BELYAEV
+ - add new context functors on requested by Patrick, Sean & Vava 
+ - new streamers/shift __rshift__
+ - better printout of boolean constants 
+ - cmt/requirements 
+    version increment to v7r2 
+
+!========================== LoKiPhys v7r1 2008-02-28 ==========================
+! 2008-02-28 - Vanya BELYAEV
+ - python/LoKiPhys/functions.py
+
+   Change "instance"<-->"type" for the following symbols:
+
+    BPVDIRA,BESTPVCOSPF,
+    BPVVD,BESTPVVETSEP
+    BPVVDSIGN,BESTPVVETSEPSIGN
+    BPVVDDOT,BESTPVVETSEPALONGMOM
+    BPVVCHI2 
+
+   All of them are now *INSTANCES*, 
+   therefore no extra "()" is required for instantiation
+
+
+
+! 2008-02-28 - Vanya BELYAEV
+ - python/LoKiPhys/functions.py
+
+    add missing symbol ISMUON 
+    (thanks a lot to Celestino Rodrigues Cobo for spotting the problem)
+
+
+! 2008-02-28 - Vanya BELYAEV
+ - LoKi/Particles5.h
+   src/Particles5.cpp
+
+     - fix the invalid printout of "Tree" meta-functors,  
+     - fix the invalid start value of "MULTTREE" meta-functor
+
+! 2008-02-28 - Vanya BELYAEV
+
+ - LoKi/Vertices0.h
+   LoKi/VertexCuts.h
+   src/Vertices0.cpp
+   python/LoKiPhys/functions.py
+
+    add new C++ type: LoKi::Vertices::Chi2Prob and 
+    the symbols for C++ and python:
+
+      VPCHI2N 
+      VPCHI2 
+
+
+
+! 2008-02-26 - Vanya BELYAEV
+
+ - python/LoKiPhys/functions.py
+
+    import the symbols M1,M2,M3 and M4 from C++ 
+
+
+! 2008-02-22 - Vanya BELYAEV
+ - dict/LoKiPhysDict.h
+      add missing #include "LoKi/SelectVertex.h"
+     (thanks to Marco)
+
+
+
+! 2008-02-21 - Vanya BELYAEV
+ - add more printout for easier location of problems 
+   increment number of constructors for "MinImpPar" context-functions 
+   add more ticky check dinto LoKi::Vertices::IsPrimary 
+
+! 2008-02-18 - Vanya BELYAEV
+ - src/Particles7.cpp
+   modify the printout of VFASPF functor ( "[...]" --> "(...)" ) 
+
+! 2008-02-18 - Vanya BELYAEV
+ - python/LoKiPhys/Phys.py
+   coupel of minor fixes 
+
+! 2008-02-15 - Marco Cattaneo
+ - Remove generation of dictionary for std::vector<const LHCb::Particle*> and
+   std::vector<const LHCb::VertexBase*>, now in PhysEvent and RecEvent
+ - In Particles20.cpp constructors, invert initialisations of 
+   LoKi::BasicFunctors<const LHCb::Particle*>::Function () and
+   LoKi::AuxDesktopBase () to avoid compilation warnings
+
+! 2008-02-11 - Vanya BELYAEV
+ - many minor fixes due to new Gaudi/ROOT/Reflex
+ - implement many shortcuts&aliases, proposed by Vava GLIGOROV
+
+! 2008-01-25 - Vanya BELYAEV
+  - LoKi/Particles19.h, 
+    src/Particles19.cpp
+       various "lifetime" functors, which are using ILifetimeFitter interface 
+
+  - LoKi/ParticleContetxCuts.h, 
+    LoKi/Particles20.h,
+    src/Particles20.cpp
+        new "context-depet" functors 
+  
+  - cmt/requirements
+        version increment to v7r1 
+
+!========================== LoKiPhys v7r0 2007-12-09 ==========================
+
+! 2007-12-09 - Vanya BELYAEV
+ - add 'sources' 
+   new files LoKi/PhysSources.h, src/PhsySources.cpp 
+
+
+! 2007-12-02 - Vanya BELYAEV
+ - update for the new major verison of LoKi v7r0 ("The Powerful Streamers")
+ - cmt/requirements 
+   version upgrade to v7r0 
+
+
+!========================== LoKiPhys v6r1 2007-10-08 ==========================
+! 2007-10-07 - Vanya BELYAEV
+ - cmt/requirements 
+    increment version to v6r1 
+    use new pattern for python modules 
+
+!========================== LoKiPhys v6r0 2007-09-04 ==========================
+! 2007-08-22 - Patrick Koppenburg
+ - src/Particles0.cpp: No implicit construction of ParticleID
+ - src/SelectVertex.cpp: temporarily removed as it depend on LoKiAlgo creating
+   a circular dependency
+
+! 2007-08-20 - Vanya BELYAEV
+ - increment the major version to v6r0 
+
+! 2007-07-23 - Vanya BELYAEV
+ - many small fixes to speed-up the compilation, 
+   reduce the dictionaries and improve doxygen 
+ - cmt/requirements 
+   version increment to v4r1 
+
+!========================== LoKiPhys v4r0 2007-06-11 ==========================
+! 2007-06-10 - Vanya BELYAEV
+ - few fixes to please Reflex, make fuctions vizible in python
+   and to achieve coherent interafce for RC and MC worlds
+
+! 2007-06-04 - Vanya BELYAEV
+ - provide more coherent interfaces for RC/MC/HepMC-particles 
+ - upgrade of various "STL-like" algorothms
+ - New Files:
+    LoKi/PhysAlgsDicts.h
+    LoKi/PhysExtractDicts.h
+    src/PhysAlgsDicts.cpp
+    src/PhysExtractDicts.cpp
+ - Modifed Files:
+    LoKi/Child.h
+    LoKi/PhysAlgs.h
+    LoKi/PhysExtract.h
+    dict/LoKiPhys.xml
+    dict/LoKiPhysDict.h
+    src/Child.cpp
+
+! 2007-06-01 - Vanya BELYAEV
+ - prepare for the next major version: v4r0 
+
+ - New files:
+
+   dict/LoKiPhys.xml
+   dict/LoKiPhysDict.h
+ 
+   python/LoKiPhys/__init__.py
+   python/LoKiPhys/decorators.py
+   python/LoKiPhys/functions.py
+   python/LoKiPhys/tests.py
+
+ - Modified files:
+
+   LoKi/Particles15.h
+   LoKi/PhysRangeTypes.h
+   LoKi/PhysTypes.h
+
+   src/Particles0.cpp
+   src/Particles12.cpp
+   src/Particles4.cpp
+   src/Particles7.cpp
+   src/Vertices0.cpp
+   src/Vertices1.cpp
+
+ - cmt/requirements 
+    version increment to v4r0 
+
+
+!========================== LoKiPhys v3r2p1 2007-04-19 ===================
+! 2007-04-19 -  P. Koppenburg
+  Remove controversial doxygen comment
+
+!========================== LoKiPhys v3r2 2007-03-07 ==================
+
+! 2007-03-07 - Vanya BELYAEV
+ - LoKi/PhysAlgs.h  
+   fix a stupid bug in "LoKi::PhysAlgs::accumulate" method..
+   All tree-relates functions (SUMTREE,MULTREE, etc..) are affected..
+ - retag as v3r2 
+
+! 2007-03-04 - Vanya BELYAEV
+ - LoKi/Particles17.h, src/Particles17.cpp 
+   LoKi/ParticleCuts.h
+    add new functions DeltaPhi/DeltaEta/DeltaR2 useful for jets studies 
+  
+ - cmt/requirements 
+   version increment to v3r2 
+  
+
+!========================== LoKiPhys v3r1 2007-03-01 ==================
+
+! 2007-03-01 - Vanya BELYAEV
+ 
+ - LoKi/Particles0.h, src/Particles0.cpp, LoKi/ParticleCuts.h
+
+    add new function LoKi::Particles::TransverseMomentumDir
+     ( aliases PTDIR and PTREL ) 
+    for evaluationof the transvers emomentum of the particle with 
+    respect to some direction.
+    This function is very useful for jet studies, in particular 
+    for b-tagging.
+ - LoKi/Particles17.h, src/Particles17.cpp 
+
+     new files - placeholder for expected "jet-related" functions 
+ 
+ - retag as v3r1 
+
+!========================== LoKiPhys v3r1 2007-02-25 ==================
+
+! 2007-02-26 - Vanya BELYAEV
+ - LoKi/Particles12.h, src/Particles12.cpp
+
+   add new function LoKi::Particles::IsMuon (shortcut ISMUON)
+   which eeesentially return LHCb::MuonPID::IsMuon
+
+ - cmt/requirements 
+  
+   version increment to v3r1 
+
+
+!========================== LoKiPhys v3r0 2007-01-23 ==================
+! 2007-01-23 - Vanya BELYAEV
+ -  LoKi/Particles0.h
+      fix for Ex/LoKiExample 
+
+!========================== LoKiPhys v3r0 2007-01-09 ==================
+! 2007-01-09 - Florence RANJARD
+ - install include files
+
+!========================== LoKiPhys v2r5 2006-12-16 ===================
+
+! 2006-12-16 - Vanya BELYAEV
+ - LoKi/Particles16.h, src/Particles16.cpp
+   add new function 
+    LoKi::Particles::CosineDirectionAngle ( aliaases: DIRA, DANG )
+   for evaluation of the coside of the angle inbetweenparticle momentum 
+   and ther direction from the primary vertex to the secondary vertex
+ - cmt/requirements 
+    version increment to v2r5 
+   
+!========================== LoKiPhys v2r4 2006-12-01 ===================
+! 2006-12-01 - Vanya BELYAEV 
+ - for for VertexBase 
+ - cmt/requirements 
+   version increment to v2r4 
+
+!========================== LoKiPhys v2r3 2006-11-25 ===================
+! 2006-11-25 - Vanya BELYAEV
+ - #include "Kernel/SystemOsUnits.h" 
+   ===> 
+   #include "GaudiKernel/SystemOsUnits.h" 
+ - src/PrintDecay.cpp 
+    improve the printpout 
+ - improve doxygen printout 
+ - add many missing functions 
+ - remove semicolumns after namespaces 
+ - cmt/requirements 
+   version incrmement to v2r3 
+
+!========================== LoKiPhys v2r1 2006-10-11 ===================
+
+! 2006-10-10 - Vanya BELYAEV
+ - LoKi/Particles4.h
+     fix for python/reflex dictionaries 
+ - cmt/requirements 
+     version increment to v2r1 
+
+!========================== LoKiPhys v2r0 2006-08-30 ===================
+
+
+! 2006-08-15 - Vanya BELYAEV
+
+ - adaptation to new inheritance scheme of VertexBase/Vertex/RecVertes 
+ - LoKi/VertexCast.h
+   couple of helper functions for Vertex <--- VertexBase ---> RecVertex cast 
+ - cmt/requirements 
+   version increment to v2r0 
+
+
+!========================== LoKiPhys v1r2 2006-07-07 ===================
+
+! 2006-06-25 - Vanya BELYAEV
+  - src/Particles13.cpp 
+      fixes for change in LHCb::Track
+  - LoKi/ParticleCuts.h 
+      uncomment PID<x> functions 
+  - cmt/requirements 
+      version increment to v1r2 
+
+!========================== LoKiPhys v1r1 2006-05-29 ===================
+
+! 2006-05-27 - Vanya BELYAEV
+ - LoKi/PritDecay.h src/PrintDecay.cpp
+    new utulities LoKi::printDecay for easy printout of decay trees 
+
+! 2006-05-23 - Vanya BELYAEV
+ - LoKi/Particles.0, src/Particles0.cpp
+   LoKi/ParticleCuts.h 
+     add new functions LoKi::Particles::Charge    ( alias    Q ) 
+                   and LoKi::Particles::SumCharge ( alias SUMQ )  
+
+
+! 2006-04-24 - Ivan BELYAEV
+ - LoKi/Particles13.h
+   src/Particles13.cpp
+     fix for new signature of LHCb::Trach::hasStateAt method 
+
+
+! 2006-04-23 - Vanya BELYAEV
+ - LoKi/PIDOperators.h
+   src/PIDOperators.cpp
+     '==' operator for ID and ABSID functions 
+ - cmt/requirements 
+     version increment to v1r1 
+
+! 2006-02-17 - Vanya Belyaev
+ - new package 
+
+! -----------------------------------------------------------------------------
+! The END 
+! -----------------------------------------------------------------------------
+
