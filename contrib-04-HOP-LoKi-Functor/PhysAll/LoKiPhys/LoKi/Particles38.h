@@ -173,13 +173,22 @@ namespace LoKi
     } ;
 
 
-
-
-
+    // ========================================================================
+    /** @class BremMCorrected
+     *  Simple evaluator for 'HOP' mass 
+     *  
+     *  For more information see 
+     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
+     *   </a>
+     *
+     *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
+     *  @date   2016-06-03
+     */
+    // ========================================================================
     class GAUDI_API BremMCorrected : public  LoKi::Particles::PtFlight 
     {
     public:
-      // ====================
+      // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
        */
@@ -206,6 +215,11 @@ namespace LoKi
       virtual std::ostream& fillStream( std::ostream& s ) const ;
 
     private:
+      // ======================================================================
+      /// default constructor is disabled 
+      BremMCorrected ( ) ;
+      // ======================================================================
+
       bool has_electron (const LHCb::Particle *parent) const;
       void e_finder (const LHCb::Particle *parent) const;
       
@@ -214,7 +228,6 @@ namespace LoKi
 
       static constexpr double m_e_PDG = 0.510998910;
     };
-
 
     // ========================================================================
     /** @class PtFlightWithBestVertex 
@@ -280,17 +293,15 @@ namespace LoKi
       // ======================================================================
     } ;  
     // ========================================================================
-    // ========================================================================
-    /** @class BremMCorrectedWithBestVertex  
-     *  Simple evaluator for bremsstrahlung corrected mass 
-     *
+    /** @class BremMCorrectedWithBestVertex
+     *  Simple evaluator for 'HOP' mass 
+     *  
      *  For more information see 
-     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf?">
-     *  </a>
+     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
+     *   </a>
      *
-     *   
-     *  @author Pavol Stefko, Guido Andreassi, Violaine Bellee
-     *  @date   2016-06-01
+     *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
+     *  @date   2016-06-03
      */
     // ========================================================================
     class GAUDI_API BremMCorrectedWithBestVertex : public PtFlightWithBestVertex 

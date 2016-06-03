@@ -441,7 +441,8 @@ bool LoKi::Particles::BremMCorrected::has_electron (const LHCb::Particle *parent
   for (const auto &child : parent->daughtersVector()) {
     if (!child->isBasicParticle()) {
       if (has_electron(child)) return true ;
-    } else if (child->particleID().abspid() == 11) return true ;
+    } 
+    else if (child->particleID().abspid() == 11) return true ;
   }
   return false ;
 }
@@ -451,7 +452,8 @@ void LoKi::Particles::BremMCorrected::e_finder (const LHCb::Particle *parent) co
     if (child->isBasicParticle()) {
       if (child->particleID().abspid() == 11) m_electrons->push_back(child->clone());
       else m_others->push_back(child->clone());
-    } else {
+    } 
+    else {
       if (has_electron(child)) e_finder(child);
       else m_others->push_back(child->clone());
     }
@@ -525,7 +527,7 @@ LoKi::Particles::BremMCorrectedWithBestVertex::operator()
   e_finder(p->clone());
 
   LorentzVector P_h_tot, P_e_tot;
-  LorentzVector P = P_h_tot + P_e_corr_tot;
+  LorentzVector P_e_corr_tot, P_e_corr_temp;
 
   for (const auto child : (*m_others) ) {
     P_h_tot += (child->momentum());
