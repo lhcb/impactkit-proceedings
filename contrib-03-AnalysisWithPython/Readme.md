@@ -68,7 +68,7 @@ To produce a simple plot, let's say, the mass of the B0, you can simply do :
    import numpy as np
    custom_binning = np.linspace(5000,5500,100) #min, max and number of bins 
    mass_B0 = df['B0_M'].plot.hist(bins=custom_binning, label = 'mass of the
-   B^{0}_{M} [MeV/c\up{2}]'} #label of the plot can be written in LaTeX
+   B^{0}_{M} [MeV/c$^{2}$]'} #label of the plot can be written in LaTeX
 ```
 
 Then, you just need to add `plt.show()` in your code to plot the histogram.
