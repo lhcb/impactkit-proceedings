@@ -80,12 +80,12 @@ A more detailed code is written in both `compare_mc_data.py` and
 
 One need to cut either to reduce a dataset or to produce some plot and there is
 a way to both :
-    - create a reduce dataset : 
+- create a reduce dataset : 
     ```python
     cut_string = " B0_M >5250 & B0_P > 500 "
     df_reduced = df.query(cut_string)
-    ```
-    - plot an histogram using a selection cut :
+    ```   
+- plot an histogram using a selection cut :
     ```python
         df.query(cut_string)['B0_M'].plot.hist(bins=custom_binning)
     ```
