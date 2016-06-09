@@ -18,7 +18,7 @@ The Goal of this project was to build an analysis demonstrator capable of :
 ## Environment setup
 
 In order to install and load all the packages we need for this project, we rely
-on the anaconda python distribution [link](https://www.continuum.io/downloads).
+on the [anaconda python distribution](https://www.continuum.io/downloads).
 
 We tested the following environment on lxplus :
 
@@ -26,41 +26,35 @@ We tested the following environment on lxplus :
   [link](http://conda.pydata.org/miniconda.html)
 - A non-mandatory step would be to create a virtual environment to keep the
   local python distribution as clean as possible. It can be achieve trough
-  : ```conda create -n NameOfYourVirtualEnv python=2.7 anaconda```.
-  To activate it, do ```source activate NameOfYourVirtualEnv``` and ```source
-  deactivate``` to go back to normal. 
-- Install ROOT inside the conda environment : ```conda install -c chrisburr
-  root=6.06.02```
+  : `conda create -n NameOfYourVirtualEnv python=2.7 anaconda`.
+  To activate it, do `source activate NameOfYourVirtualEnv` and `source deactivate` to go back to normal. 
+- Install ROOT inside the conda environment : `conda install -c chrisburr root=6.06.02`
 - You will then need to activate the conda environment :
-    - ```source activate root``` to load the main conda environment
-    - ```source activate NameOfYourVirtualEnv``` if you made it yourself
+    - `source activate root` to load the main conda environment
+    - `source activate NameOfYourVirtualEnv` if you made it yourself
 - A few packages are also needed and can be installed using pip, the python
   package manager :
     - Numpy (arrays and tools for scientific computing), Matplotlib (plotting
-      library), scikit-learn (Machine Learning in Python) : ```pip install
-      numpy matplotlib scikit-learn```
-    - The root_pandas package [link](https://github.com/ibab/root_pandas) : based on root_numpy
-      [link](https://github.com/rootpy/root_numpy) it allows you to load a ROOT
+      library), scikit-learn (Machine Learning in Python) : `pip install numpy matplotlib scikit-learn`
+    - The [root_pandas package](https://github.com/ibab/root_pandas) is based on   [root_numpy](https://github.com/rootpy/root_numpy) and allows you to load a ROOT
       file and store the content in a pandas dataframe. Follow both links if
       you want more information on how to load a ROOT file. To install it, do
-      ```pip install root_pandas```
+      `pip install root_pandas`
     - In order to produce a jupyter notebook which is a way to keep both the
-      analysis code and its output in the same file, you can also do ```pip
-      install jupyter```. Then, to load a jupyter notebook, you can do
-      ```jupyter notebook``` and access the notebook in your browser.
+      analysis code and its output in the same file, you can also do `pip install jupyter`. Then, to load a jupyter notebook, you can do
+      `jupyter notebook` and access the notebook in your browser.
 
 ## Loading data
 
 Using root_pandas library, we can load a ROOT file in a few simple steps :
-- choose the file you want and store the path as string
-  : ```myfile = "path/to/file.root"```
+- choose the file you want and store the path as string : `myfile = "path/to/file.root"`
 - then select the branches you want by creating a list with the names of the
   variables you want. The use of of the wildcard **\*** is also supported. For
-  instance you can select ```mybranches = ["B0_M","*_PT"] to load the B0 mass
+  instance you can select `mybranches = ["B0_M","*_PT"]` to load the B0 mass
   and the transverse momentum of each particle of your entry.
 - As the file will be loaded in the memory, you should limit to a certain
-  number of entries and set, for instance, ```n_events = 10000```.
-- Finally, select the name of your tuple as ```tuple_name = 'someDir/myTree```
+  number of entries and set, for instance, `n_events = 10000`.
+- Finally, select the name of your tuple as `tuple_name = 'someDir/myTree`
 
 Then, you will be allowed to store you tree as a pandas dataframe using :
 ```python
@@ -77,9 +71,10 @@ To produce a simple plot, let's say, the mass of the B0, you can simply do :
    B^{0}_{M} [MeV/c\up{2}]'} #label of the plot can be written in LaTeX
 ```
 
-Then, you just need to add ```plt.show()``` in your code to plot the histogram.
-A more detailed code is written in both ```compare_mc_data.py``` and
-```AnalysisWithPython.ipynb```.
+Then, you just need to add `plt.show()` in your code to plot the histogram.
+A more detailed code is written in both `compare_mc_data.py` and
+`AnalysisWithPython.ipynb`.  
+
 
 ## Cutting
 
@@ -98,7 +93,7 @@ a way to both :
 ## MVA
 
 ROOT users are used to TMVA when they need to train a BDT for their analysis.
-The ```scikit-learn``` project is the most mature way to such task in Python.
+The *scikit-learn* project is the most mature way to such task in Python.
 Posts from Tim Head's
 [blog](http://betatim.github.io/posts/sklearn-for-TMVA-users/) help us a lot to set up a BDT using this library.
 
@@ -135,10 +130,9 @@ Posts from Tim Head's
 
 Some analysis step could create a new variable, as a BDT output, worth to be
 added to a ROOT file. Two steps are needed to perform this :
-- The variable should be added to the dataframe using ```df['BDT']
-  = sk_y_predicted```
+- The variable should be added to the dataframe using `df['BDT'] = sk_y_predicted`
 - The modified dataframe can be stored in a new ROOT file using
-  ```df.root_pandas.to_root(df, 'output.root', key = 'mytree')```
+  `df.root_pandas.to_root(df, 'output.root', key = 'mytree')`
 
 ## Conclusion
 
