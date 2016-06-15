@@ -7,10 +7,10 @@ software. Built in the 90's, it has been very useful to perform all the tasks
 required by an analysis, from the handle of large datasets to the use of
 powerful statistical procedures with the help of librairies such as RooFit or
 TMVA.  
-However, it hasn't spread outside of the HEP community while other projects
+However, it hasn't spread outside of the HEP community, while other projects
 also dedicated to data analysis are now very mature with a much larger
 users community.
-The Goal of this project was to build an analysis demonstrator capable of :
+The goal of this project was to build an analysis demonstrator capable of :
 - use the rich environment of python libraries to perform analysis tasks
 - load and store processed data in ROOT file format, in order to be able to
   fully collaborate with ROOT users.
@@ -46,17 +46,17 @@ We tested the following environment on lxplus :
 
 ## Loading data
 
-Using root_pandas library, we can load a ROOT file in a few simple steps :
+Using the root_pandas library, we can load a ROOT file in a few simple steps :
 - choose the file you want and store the path as string : `myfile = "path/to/file.root"`
 - then select the branches you want by creating a list with the names of the
-  variables you want. The use of of the wildcard **\*** is also supported. For
+  variables you want. The use of of the wildcard `*` is also supported. For
   instance you can select `mybranches = ["B0_M","*_PT"]` to load the B0 mass
   and the transverse momentum of each particle of your entry.
 - As the file will be loaded in the memory, you should limit to a certain
   number of entries and set, for instance, `n_events = 10000`.
 - Finally, select the name of your tuple as `tuple_name = 'someDir/myTree`
 
-Then, you will be allowed to store you tree as a pandas dataframe using :
+Then, you will be allowed to store your tree as a pandas dataframe using :
 ```python
    import root_pandas
    df = root_pandas.read_root(myfile, columns=mybranches, stop = n_events, key= tuple_name)
@@ -78,14 +78,20 @@ A more detailed code is written in both `compare_mc_data.py` and
 
 ## Cutting
 
-One need to cut either to reduce a dataset or to produce some plot and there is
+One needs to cut either to reduce a dataset or to produce some plot and there is
 a way to both :
-- create a reduce dataset : 
+- create a reduced dataset : 
     ```python
     cut_string = " B0_M >5250 & B0_P > 500 "
     df_reduced = df.query(cut_string)
     ```   
-- plot an histogram using a selection cut :
+- select events without creating a new dataset :
+    ```python
+    mask = (df['B0_M'] > 5250) & (df['B0_P'] > 500)
+    df_reduced = df[mask]
+    ```
+Which method to choose will depend on the use-case. And then, the plotting part
+is taken care by :  
     ```python
         df.query(cut_string)['B0_M'].plot.hist(bins=custom_binning)
     ```
@@ -128,7 +134,7 @@ Posts from Tim Head's
 ```
 ## Adding variable to the tree and saving output
 
-Some analysis step could create a new variable, as a BDT output, worth to be
+Some analysis step could create a new variable, such as a BDT output, which is to be
 added to a ROOT file. Two steps are needed to perform this :
 - The variable should be added to the dataframe using `df['BDT'] = sk_y_predicted`
 - The modified dataframe can be stored in a new ROOT file using
