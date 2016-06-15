@@ -1,8 +1,0 @@
-K 10
-svn:ignore
-V 31
-x86_64-slc?-*-*
-i686-slc?-*-*
-
-
-END

@@ -1,83 +1,0 @@
-10
-
-dir
-206562
-svn+ssh://svn.cern.ch/reps/lhcb/Phys/tags/Phys/LoKiPhys/v11r7
-svn+ssh://svn.cern.ch/reps/lhcb
-
-
-
-2016-02-04T20:30:19.218039Z
-200921
-erodrigu
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-4525493e-7705-40b1-a816-d608a930855b
-
-python
-dir
-
-tests
-dir
-
-cmt
-dir
-
-dict
-dir
-
-doc
-dir
-
-src
-dir
-
-CMakeLists.txt
-file
-
-
-
-
-2016-06-02T08:36:35.000000Z
-b18c9a766315deff9d44dbbd59867803
-2016-02-04T20:30:15.925780Z
-200920
-erodrigu
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1536
-
-LoKi
-dir
-
