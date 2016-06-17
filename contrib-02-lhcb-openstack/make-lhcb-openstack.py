@@ -63,9 +63,6 @@ def start_instance():
 			pass
 	print "ssh available"
 
-def add_cern_user():
-	print(subprocess.check_output("ssh -o \"StrictHostKeyChecking no\" root@{host_name} useraddcern koschube".format(host_name=args.host_name) , shell=True))
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument("host_name", help="Host name of the image that will be created")
@@ -79,7 +76,6 @@ args = parser.parse_args()
 
 create_image()
 start_instance()
-add_cern_user()
 try:
 	os.remove("config.make-lhcb-openstack")
 except:
@@ -100,9 +96,7 @@ Please change the password after login, you can use the command
 passwd default
 
 Once you are logged in, 
-change the password with
-passwd default
-and call
+you can call
 kinit {cern_user}@CERN.CH
 aklog
 to gain AFS access.
@@ -111,39 +105,7 @@ You can also log in as root:
 ssh root@{host_name}
 but then the LHCb Software won't be available.
 
------------------------------------------
-
-There is also a user called {cern_user}, which was added with the command useraddcern. 
-However, 
-
-(1) when you log in via "ssh {cern_user}@{host_name}" first, the AFS-authentication seems fail
-in some way. You have to call kinit {cern_user}@CERN.CH, then call aklog, then log out and log in again.
-If you just call aklog, this gives a strange error and one cannot log back in again
-Maybe this is a hint on what's going wrong?
-You also must enter your password every time you want to ssh into the instance, even if you obtained a ticket on lxplus
-
-
-(2) the LHCb Software seems to be unavailable.
-
-If you know how to fix (1) or (2) let me know at
-https://gitlab.cern.ch/koschube/lhcb-software-openstack
-or via email to 
-konstantin@schubert.fr
-
 
 """.format(host_name=args.host_name, cern_user=args.cern_user)
 
 print(message)
-
-"""
-to fix (1)
-in /etc/ssh/sshd_config, set 
-KerberosAuthentication yes
-KerberosGetAFSToken yes
-
-
-to fix (2) log in once with {cern_user} and call kinit koschube@CERN.CH, then aklog, then log out and log in again
-If you just call aklog, this gives a strange error and one cannot log back in again
-maybe this is a hint on what's going wrong?
-
-"""

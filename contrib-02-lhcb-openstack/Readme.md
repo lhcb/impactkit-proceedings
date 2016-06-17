@@ -9,17 +9,17 @@ However, working on `lxplus` comes with a few significant limitations:
  * No super user access. This makes it hard to install new software.
  * Shared resources with other users. Others might start resource-hungry processes on the same machine, therefore extending execution time and making it unpredicatable.
 
-Using a virtual machine on [`openstack.cern.ch`](https://openstack.cern.ch) solves these issues. It is possible to disposition a machine with up to 10 vCPUs and up to 20 GB memory. While vCPUs are not the same as actual, physical CPUs, this comes with with a significant improvement in performance and performance reliablity.
-However, the default VM images do not have the LHCb Software Environment installed, nor do they have access to AFS.
+Using a virtual machine on [`openstack.cern.ch`](https://openstack.cern.ch) solves these issues. It is possible to provision a machine with up to 10 vCPUs and up to 20 GB memory. (There are user quotas on total the number of instances, RAM and vCPUs used.) While  vCPUs are not the same as physical CPUs, using a virtual machine comes with with a significant improvement in performance and performance reliablity. There are no limits on time or memory for running processes. 
 
-This tutorial shows how one can easily deploy a machine on Openstack which offers the LHCb software environment and AFS access, using the CernVM virtual machine image.
-This can be done using the command line only. No step in the tutorial requires any GUI interaction.
 
-You can now deploy a powerful machine on openstack, run LHCb Software there while enjoying full super user access and access to AFS. You can take snapshots of your machines and if all goes awry, you can choose the nuclear option on your machine - and set up a new one.
+This tutorial shows how one can easily deploy a machine on Openstack which offers the LHCb software environment and AFS access, using the CernVM virtual machine image.You will be able to deploy a powerful machine on openstack, run LHCb Software there while enjoying full super user access and access to AFS. You can take snapshots of your machines and if all goes awry, you can choose the nuclear option on your machine - and set up a new one.
 
-Especially useful for:
-  * Continous integration tests (CI)
-  * Profiling your algorithms.
+
+This can be done using the command line only. No step in the tutorial requires any GUI interaction. Here is what we will do:
+ * Register with openstack and set up the necessary authentication.
+ * Make sure that a special CernVM virtual machine image is avaiable.
+ * Start the CernVM virtual machine with special start parameters that configure our environment.
+ * Log in to change the password and authenticate for AFS access.
 
 
 
@@ -50,6 +50,7 @@ export OS_CACERT=/etc/pki/tls/cert.pem
     
 ### Upload [CERNVM](https://cernvm.cern.ch/) image
 
+The default VM images do not have the LHCb Software Environment installed, nor do they have access to AFS.
 Upload the CERNVM image to OpenStack (details [here](https://cernvm.cern.ch/portal/openstack) ) 
     
 ```
@@ -58,6 +59,8 @@ glance image-create --name "CernVM 3" --is-public False --disk-format raw \
 --property os=linux --property hypervisor_type=kvm --container-format bare \
 --file cernvm-3.5.1.hdd
 ```
+
+You can (and maybe should) replace `cernvm-3.5.1.hdd` with a newer version of CernVM here. Have a look [here](https://cernvm.cern.ch/releases/production/) for possible downloads.
 
 The response should be something like this:
 ```
@@ -92,8 +95,8 @@ You can see it in the web interface in [your list of images](https://openstack.c
 ### Define CernVM config
 
 Copy the following lines in a file. We will refer to this file as `<context-config.txt>`.
-It is a CernVM Contextualization file. (Here is some documentation)[https://cernvm.cern.ch/portal/contextualisation] and 
-(here you can configure your own contexts)[https://cernvm-online.cern.ch/dashboard/].
+It is a CernVM Contextualization file. [Here is some documentation](https://cernvm.cern.ch/portal/contextualisation) and 
+[here you can configure your own contexts](https://cernvm-online.cern.ch/dashboard/).
 
 ```
 #!/bin/sh
@@ -190,3 +193,7 @@ In order to use afs, you need to authenticate with keberos after login:
 kinit <your-cern-username>@CERN.CH
 aklog
 ```
+
+## Conclusions
+
+The tutorial has shown how to deploy a machine on Openstack which offers the LHCb software environment and AFS access. The machine is set up using the CernVM virtual machine image with a lhcb-specific configuration. This means that one can run and test LHCb software on a powerful machine with super user access and AFS mount.
