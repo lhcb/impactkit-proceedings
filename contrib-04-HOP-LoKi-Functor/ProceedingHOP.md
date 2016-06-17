@@ -13,7 +13,7 @@ This shares the physics content with the TupleTool, so collaboration between the
 ## Physics details
 
 For this we recommend to read at least the first three sections of the note presented in the project description. As explained in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadronic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
-![equation]http://www.sciweavers.org/tex2img.php?eq=%5Calpha_%7BHOP%7D%20%3D%20%5Cfrac%7BP_t%5E%7Bhadron%7D%7D%7BP_t%5E%7Belectron%7D%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0
+![equation](http://www.sciweavers.org/tex2img.php?eq=%5Calpha_%7BHOP%7D%20%3D%20%5Cfrac%7BP_t%5E%7Bhadron%7D%7D%7BP_t%5E%7Belectron%7D%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
 
 $$\alpha_{HOP} = \frac{P_t^{hadron}}{P_t^{electron}}$$
 this parameter is then used to scale the three-momentum of the electronic part of the decay:
