@@ -1,19 +1,35 @@
 
 # Introducing the HOP mass in the LHCb software
 
-## Description of the project
-
-Create a new LoKi functor to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. In particular, the team needs to check if the $p_{\mathrm{T}}$ with respect to the $B$ flight direction is implemented, and if not, do so. Afterwards, implement HOP and the validation variables discussed in the note ($\theta(ee)$ and $\theta(hadrons)$). This shares the physics content with the TupleTool, so collaboration between the two teams is foreseen.
 
 ## Introduction
 
-The goal of this project is to create a new LoKi functor to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. The $p_{\mathrm{T}}$ with respect to the $B$ flight direction is already implemented in the LoKi code. We use this latter in the HOP tool.
-This shares the physics content with the TupleTool, so collaboration between the two teams is foreseen.
+The goal of this project is to create a new LoKi functor and a new TupleTool to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. The $p_{\mathrm{T}}$ with respect to the $B$ flight direction is already implemented in the LoKi code. We use this latter in the HOP tool.
 
 ## Physics details
 
+For this we recommend to read at least the first three sections of the note presented in the project description. As explained     in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadron    ic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
+$$\alpha_{\mathrm{HOP}} = \frac{P_t^{\mathrm{h}}}{P_t^{\mathrm{e}}}$$
+this parameter is then used to scale the three-momentum of the electronic part of the decay:
+$$\overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-}) = \alpha_{\mathrm{HOP}} \times \overrightarrow{P^{\mathrm{corr}}}(\ma    thrm{e^+ / e^-})$$
+this new three-momentum (together with the hadronic part) is then used to calculate the new invariant mass of the original par    ticle. In theory this supposed to account for the bremstrallung losses of the final state electrons and positrons.
+
+Our algorithm will treat all the decays in the following way:
+
+* find all the particles which further decay only into $e^{\pm}$
+* find all $e^{\pm}$ coming from semi-leptonic decays
+* add the four-momenta of these particles to obtain $P^{\mathrm{e}}$
+* find all particles which have no $e^{\pm}$ in their decay tree or are non-electronic basic particles
+* add the four-momenta of these particles to obtain $P^{\mathrm{h}}$
+* calculate the three-momentum component $P_t^{\mathrm{e/h}}$ of $P^{\mathrm{e/h}}$ transversal to the original $B$ flight dir    ection
+* calculate $\alpha_{\mathrm{HOP}}$ as the ratio of these two quantities
+* apply the $\alpha_{\mathrm{HOP}}$ correction as described above to all the $e^{\pm}$ in the final state
+* calculate the new corrected four-momenta of $e^{\pm}$ and sum them to obtain $P_{\mathrm{corr}}^{\mathrm{e}}$
+* finally, add $P_{\mathrm{corr}}^{\mathrm{e}}$ and $P^{\mathrm{h}}$ and calculate the invariant mass of the resulting object
+
+This way we should be left with the corrected HOP mass of the original $B$.
+
 For this we recommend to read at least the first three sections of the note presented in the project description. As explained in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadronic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
-![equation](http://www.sciweavers.org/tex2img.php?eq=%5Calpha_%7BHOP%7D%20%3D%20%5Cfrac%7BP_t%5E%7Bhadron%7D%7D%7BP_t%5E%7Belectron%7D%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
 
 $$\alpha_{HOP} = \frac{P_t^{hadron}}{P_t^{electron}}$$
 this parameter is then used to scale the three-momentum of the electronic part of the decay:
@@ -35,11 +51,23 @@ mv ./DaVinciDevWithHOPLoKi
 getpack Phys/LoKiPhys
 ```
 
-Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. After pressing enter you should have a new `Phys/LoKiPhys` directory with a lot of subdirectories and files in your working folder. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we put our new HOP LoKi functor is `Particles38.{cpp,h}`. These files were chosen because they already contain `CORRM` functor, which will serve as a skeleton for our new functor.
+Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. This creates a new `Phys/LoKiPhys` containing the LoKiPhys code. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor is `Particles38.{cpp,h}`, since these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which will serve as a skeleton for our new functor. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected takes the primary vertex of $B$ as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
 
-As previously mentioned we will work in `Particles38` files. They already contain the code for the MCorrected (CORRM) LoKi functor, which will serve as a very good baseline for our new HOP functor. There are actually two LoKi functors calculating the corrected mass: MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM). The difference is that BPVCORRM implicitly takes the best primary vertex of $B$, whereas the BPVCORRM takes the primary vertex of $B$ as an input argument. This serves as an indication that we will also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
+The first algorithm we developed looks for all the children (of all generations) of $B$ and creates three lists:
 
-So in order to really start writing our functor we first copy the entire code of MCorrected and MCorrectedWithBestVertex and prepend 'Brem' in front of the class name and its methods. Remember to do it in the `cpp` file as well as the header file. Now we need to think about the implementation of the algorithm described in the previous section. Both our HOP functors receive as an argument the original $B$ particle. So the first algorithm we want to develop should look for all the children (of all generations) of $B$ and create two lists, one containing all the hadron children, and other containing only the electrons and positrons. This is taken care of using the `e_finder` function (which also utilizes the `has_electron` function). These functions should provide us with two vectors of `LHCb::Particle*` objects: `m_electrons` and `m_others`. Then we sum up the four-momenta of all electrons and hadrons individually to obtain two `LorentzVector` variables `P_h_tot` and `P_e_tot`.
+1. one containing all the non-electron children;
+2. one containing all the particles that have only electrons and/or positrons as childrens;
+3. a last one with the remaining electrons/positrons, namely those coming from particles that have both $e^\pm$ and other particles between their childres.
+
+This strategy allows us to profit from the better mass resolution introduced by the PV refitting, where possible (point 2.).
+
+We implemented at this purpose the `e_finder` and the `has_electron` functions.
+
+The four-momenta of all electrons and other particles are then summed up separately to obtain two `LorentzVector` variables `P_e_tot` and `P_h_tot` that are used to compute $\alpha$.
+This latter is then used to correct the momenta of the electronic part of the decay chain: it is multiplied to the space component of the four-momenta, while the energy component is re-computed as follows:
+$$E_e = \sqrt{\alpha^2 * (p_X^ 2 + p_Y^ 2 +p_Z^ 2) + m_{e (PDG)}^2}$$
+
+The mother's corrected four-momentum is then computed summing the 4 moemnta of the daughters after having applied this correction, and the invariant mass is returned.
 
 ## TupleTool implementation
 
