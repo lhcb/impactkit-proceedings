@@ -15,7 +15,7 @@ Using a virtual machine on [`openstack.cern.ch`](https://openstack.cern.ch) solv
 This tutorial shows how one can easily deploy a machine on Openstack which offers the LHCb software environment and AFS access, using the CernVM virtual machine image.You will be able to deploy a powerful machine on openstack, run LHCb Software there while enjoying full super user access and access to AFS. You can take snapshots of your machines and if all goes awry, you can choose the nuclear option on your machine - and set up a new one.
 
 
-This can be done using the command line only. No step in the tutorial requires any GUI interaction. Here is what we will do:
+All of this can be done using the command line only. No step in the tutorial requires any GUI interaction. Here is what we will do:
  * Register with openstack and set up the necessary authentication.
  * Make sure that a special CernVM virtual machine image is avaiable.
  * Start the CernVM virtual machine with special start parameters that configure our environment.

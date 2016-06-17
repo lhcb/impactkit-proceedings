@@ -52,17 +52,6 @@ def start_instance():
 		time.sleep(20)
 		output = subprocess.check_output("nova show {host_name}".format(host_name=args.host_name), shell=True)
 	print output
-	ssh_works = False
-	while(not ssh_works):
-		print "waiting for ssh ... takes a minute or two"
-		time.sleep(10)
-		try:
-			subprocess.check_output("ssh -o \"StrictHostKeyChecking no\" root@{host_name} exit".format(host_name=args.host_name), shell=True)
-			ssh_works = True
-		except:
-			pass
-	print "ssh available"
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument("host_name", help="Host name of the image that will be created")
@@ -87,7 +76,7 @@ except:
 
 
 message = """
-You can now log in with 
+As soon as the ssh deamon has started, you can log in with 
 ssh default@{host_name}
 and password 
 testtest
