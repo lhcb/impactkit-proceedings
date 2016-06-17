@@ -27,7 +27,7 @@ Our algorithm will treat all the decays in the following way:
 * calculate the new corrected four-momenta of $e^{\pm}$ and sum them to obtain $P_{\mathrm{corr}}^{\mathrm{e}}$
 * finally, add $P_{\mathrm{corr}}^{\mathrm{e}}$ and $P^{\mathrm{h}}$ and calculate the invariant mass of the resulting object
 
-This way we should be left with the corrected HOP mass of the original $B$.
+Tthis way we should be left with the corrected HOP mass of the original $B$.
 
 For this we recommend to read at least the first three sections of the note presented in the project description. As explained in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadronic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
 
