@@ -40,18 +40,20 @@ def create_image():
 	if "CernVM 3" in subprocess.check_output("nova image-list", shell=True):
 		print("INFO: Image CERNVM 3 already exists")
 		return
+	print ("Copying virtual machine image to openstack...")
 	subprocess.check_output("wget http://cernvm.cern.ch/releases/production/cernvm-3.5.1.hdd", shell=True)
-	subprocess.check_output("glance image-create --name \"CernVM 3\" --is-public False --disk-format raw --property os=linux --property hypervisor_type=kvm --container-format bare --file cernvm-3.5.1.hdd", shell=True)
+	output = subprocess.check_output("glance image-create --name \"CernVM 3\" --is-public False --disk-format raw --property os=linux --property hypervisor_type=kvm --container-format bare --file cernvm-3.5.1.hdd", shell=True)
+	print (output)
 
 def start_instance():
 	output = subprocess.check_output("nova boot {host_name}  --image \"CernVM 3\" --flavor {instance_flavor} --key-name {ssh_pub_key}  --user-data context-config.txt".format( 
 						instance_flavor=args.instance_flavor, ssh_pub_key=args.ssh_pub_key, host_name=args.host_name), shell=True)
-	print output
+	print (output)
 	while("networking" in output or "building" in output):
-		print "networking... takes about 10 minutes"
+		print ("networking... takes about 10 minutes")
 		time.sleep(20)
 		output = subprocess.check_output("nova show {host_name}".format(host_name=args.host_name), shell=True)
-	print output
+	print (output)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("host_name", help="Host name of the image that will be created")
