@@ -7,7 +7,8 @@ Create a new LoKi functor to implement the ideas of the HOP mass, discussed in h
 
 ## Introduction
 
-The goal of this project is to create a new LoKi functor to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. In particular, the team needs to check if the $p_{\mathrm{T}}$ with respect to the $B$ flight direction is implemented, and if not, do so. Afterwards, implement HOP and the validation variables discussed in the note ($\theta(ee)$ and $\theta(hadrons)$). This shares the physics content with the TupleTool, so collaboration between the two teams is foreseen.
+The goal of this project is to create a new LoKi functor to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. The $p_{\mathrm{T}}$ with respect to the $B$ flight direction is already implemented in the LoKi code. We use this latter in the HOP tool.
+This shares the physics content with the TupleTool, so collaboration between the two teams is foreseen.
 
 ## Physics details
 
