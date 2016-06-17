@@ -1,11 +1,29 @@
 
-# New LoKi functor: HOP mass
+# Introducing the HOP mass in the LHCb software
 
 ## Description of the project
 
 Create a new LoKi functor to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. In particular, the team needs to check if the $p_{\mathrm{T}}$ with respect to the $B$ flight direction is implemented, and if not, do so. Afterwards, implement HOP and the validation variables discussed in the note ($\theta(ee)$ and $\theta(hadrons)$). This shares the physics content with the TupleTool, so collaboration between the two teams is foreseen.
 
-## Solution to the problem
+## Introduction
+
+The goal of this project is to create a new LoKi functor to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. In particular, the team needs to check if the $p_{\mathrm{T}}$ with respect to the $B$ flight direction is implemented, and if not, do so. Afterwards, implement HOP and the validation variables discussed in the note ($\theta(ee)$ and $\theta(hadrons)$). This shares the physics content with the TupleTool, so collaboration between the two teams is foreseen.
+
+## Physics details
+
+## LoKi functor implementation
+
+## TupleTool implementation
+
+## Results and comparision between tools
+
+## Conclusions
+
+
+
+
+
+
 
 ### Setting up the environment
 
