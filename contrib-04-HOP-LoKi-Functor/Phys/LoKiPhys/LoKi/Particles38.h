@@ -173,13 +173,22 @@ namespace LoKi
     } ;
 
 
-
-
-
+    // ========================================================================
+    /** @class BremMCorrected
+     *  Simple evaluator for 'HOP' mass 
+     *  
+     *  For more information see 
+     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
+     *   </a>
+     *
+     *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
+     *  @date   2016-06-03
+     */
+    // ========================================================================
     class GAUDI_API BremMCorrected : public  LoKi::Particles::PtFlight 
     {
     public:
-      // ====================
+      // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
        */
@@ -201,29 +210,27 @@ namespace LoKi
       // MANDATORY: clone method ("virtual constructor") 
       virtual BremMCorrected* clone() const ;
       // MANDATORY: the only one essential method      
-      virtual result_type operator () ( argument p ) const ;
+      result_type operator () ( argument p ) const ;
+      // OPTIONAL: the specific printout
       virtual std::ostream& fillStream( std::ostream& s ) const ;
 
     private:
-	     BremMCorrected();
+      // ======================================================================
+      /// default constructor is disabled 
+      BremMCorrected ( ) ;
+      // ======================================================================
+      bool has_electron (const LHCb::Particle *parent) const;
+      bool has_only_electrons (const LHCb::Particle *parent) const;
+      void e_finder (const LHCb::Particle *parent) const;
+      void e_finder_other (const LHCb::Particle *parent) const;
+      
+      std::vector <LHCb::Particle*> *m_all_electrons  = new std::vector<LHCb::Particle*>;
+      std::vector <LHCb::Particle*> *m_rest_electrons  = new std::vector<LHCb::Particle*>;
+      std::vector <LHCb::Particle*> *m_electron_mothers  = new std::vector<LHCb::Particle*>;
+      std::vector <LHCb::Particle*> *m_others  = new std::vector<LHCb::Particle*>;
 
-	     bool has_electron (const LHCb::Particle *parent) const;
-
-	     void e_finder (const LHCb::Particle *parent, std::vector <LHCb::Particle*> m_electrons, std::vector <LHCb::Particle*> m_others) const;
-
-	     LorentzVector P_h_tot; //maybe it's Gaudi::LorentzVector*
-	     LorentzVector P_e_tot; //maybe it's Gaudi::LorentzVector*
-	     LorentzVector P_e_corr_tot; //maybe it's Gaudi::LorentzVector*
-	     LorentzVector P_e_corr_temp; //maybe it's Gaudi::LorentzVector*
-
-	     std::vector <LoKi::LorentzVector*> P_e_corr; //maybe it's Gaudi::LorentzVector*
-
-	     const double m_e_PDG = 0.510998910;
-	     double pt_e = 0;
-	     double pt_h = 0;
-
+      static constexpr double m_e_PDG = 0.510998910;
     };
-
 
     // ========================================================================
     /** @class PtFlightWithBestVertex 
@@ -289,17 +296,15 @@ namespace LoKi
       // ======================================================================
     } ;  
     // ========================================================================
-    // ========================================================================
-    /** @class BremMCorrectedWithBestVertex  
-     *  Simple evaluator for bremsstrahlung corrected mass 
-     *
+    /** @class BremMCorrectedWithBestVertex
+     *  Simple evaluator for 'HOP' mass 
+     *  
      *  For more information see 
-     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf?">
-     *  </a>
+     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
+     *   </a>
      *
-     *   
-     *  @author Pavol Stefko, Guido Andreassi, Violaine Bellee
-     *  @date   2016-06-01
+     *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
+     *  @date   2016-06-03
      */
     // ========================================================================
     class GAUDI_API BremMCorrectedWithBestVertex : public PtFlightWithBestVertex 
@@ -318,10 +323,13 @@ namespace LoKi
       virtual std::ostream& fillStream( std::ostream& s ) const ;
     private:      
       bool has_electron (const LHCb::Particle *parent) const;
-      
+      bool has_only_electrons (const LHCb::Particle *parent) const;
       void e_finder (const LHCb::Particle *parent) const;
+      void e_finder_other (const LHCb::Particle *parent) const;
       
-      std::vector <LHCb::Particle*> *m_electrons  = new std::vector<LHCb::Particle*>;
+      std::vector <LHCb::Particle*> *m_all_electrons  = new std::vector<LHCb::Particle*>;
+      std::vector <LHCb::Particle*> *m_rest_electrons  = new std::vector<LHCb::Particle*>;
+      std::vector <LHCb::Particle*> *m_electron_mothers  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_others  = new std::vector<LHCb::Particle*>;
 
       static constexpr double m_e_PDG = 0.510998910;
