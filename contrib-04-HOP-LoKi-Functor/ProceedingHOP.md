@@ -27,14 +27,7 @@ Our algorithm will treat all the decays in the following way:
 * calculate the new corrected four-momenta of $e^{\pm}$ and sum them to obtain $P_{\mathrm{corr}}^{\mathrm{e}}$
 * finally, add $P_{\mathrm{corr}}^{\mathrm{e}}$ and $P^{\mathrm{h}}$ and calculate the invariant mass of the resulting object
 
-Tthis way we should be left with the corrected HOP mass of the original $B$.
-
-For this we recommend to read at least the first three sections of the note presented in the project description. As explained in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadronic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
-
-$$\alpha_{HOP} = \frac{P_t^{hadron}}{P_t^{electron}}$$
-this parameter is then used to scale the three-momentum of the electronic part of the decay:
-$$\overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-}) = \alpha_{HOP} \times \overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-})$$
-this new three-momentum (together with the hadronic part) is then used to calculate the new invariant mass of the original particle. In theory this supposed to account for the bremstrallung losses of the final state electrons and positrons.
+This way we should be left with the corrected HOP mass of the original $B$.
 
 ## LoKi functor implementation
 
