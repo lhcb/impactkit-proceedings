@@ -11,8 +11,8 @@ The goal of this project is to create a new LoKi functor and a new TupleTool to 
 For this we recommend to read at least the first three sections of the note presented in the project description. As explained     in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadron    ic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
 $$\alpha_{\mathrm{HOP}} = \frac{P_t^{\mathrm{h}}}{P_t^{\mathrm{e}}}$$
 this parameter is then used to scale the three-momentum of the electronic part of the decay:
-$$\overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-}) = \alpha_{\mathrm{HOP}} \times \overrightarrow{P^{\mathrm{corr}}}(\ma    thrm{e^+ / e^-})$$
-this new three-momentum (together with the hadronic part) is then used to calculate the new invariant mass of the original par    ticle. In theory this supposed to account for the bremstrallung losses of the final state electrons and positrons.
+$$\overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-}) = \alpha_{\mathrm{HOP}} \times \overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-})$$
+this new three-momentum (together with the hadronic part) is then used to calculate the new invariant mass of the original particle. In theory this supposed to account for the bremstrallung losses of the final state electrons and positrons.
 
 Our algorithm will treat all the decays in the following way:
 
@@ -44,9 +44,9 @@ mv ./DaVinciDevWithHOPLoKi
 getpack Phys/LoKiPhys
 ```
 
-Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. This creates a new `Phys/LoKiPhys` containing the LoKiPhys code. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor is `Particles38.{cpp,h}`, since these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which will serve as a skeleton for our new functor. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected takes the primary vertex of $B$ as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
+Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. This creates a new `Phys/LoKiPhys` containing the LoKiPhys code. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor is `Particles38.{cpp,h}`, since these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which will serve as a skeleton for our new functor. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected uses the primary vertex that is provided as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
 
-The first algorithm we developed looks for all the children (of all generations) of $B$ and creates three lists:
+The algorithm we developed looks for all the children (of all generations) of $B$ and creates three lists:
 
 1. one containing all the non-electron children;
 2. one containing all the particles that have only electrons and/or positrons as childrens;
@@ -61,6 +61,17 @@ This latter is then used to correct the momenta of the electronic part of the de
 $$E_e = \sqrt{\alpha^2 * (p_X^ 2 + p_Y^ 2 +p_Z^ 2) + m_{e (PDG)}^2}$$
 
 The mother's corrected four-momentum is then computed summing the 4 moemnta of the daughters after having applied this correction, and the invariant mass is returned.
+
+The code and headers in `Particles*.{cpp,h}` are repeated a second time for implementing the version of the code that considers the user-defined primary vertex: this just requires adding this vertex as an imput argument.
+
+The final modification that is required to the LoKi code is to add the following lines in Phys/LoKiPhys/python/LoKiPhys/functions.py:
+```python
+## @see LoKi::Cuts::HOPM
+HOPM    = LoKi.Particles.BremMCorrected
+## @see LoKi::Cuts::BPVHOPM
+BPVHOPM = LoKi.Particles.BremMCorrectedWithBestVertex ()  
+```
+This informs DaVinci about the new LoKi Functors and gives them a name.
 
 ## TupleTool implementation
 
