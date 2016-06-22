@@ -48,7 +48,7 @@ source ~/openrc.sh
 export OS_CACERT=/etc/pki/tls/cert.pem
 ```
     
-### Upload [CERNVM](https://cernvm.cern.ch/) image
+### Upload a [CERNVM](https://cernvm.cern.ch/) image
 
 The default VM images do not have the LHCb Software Environment installed, nor do they have access to AFS.
 Upload the CERNVM image to OpenStack (details [here](https://cernvm.cern.ch/portal/openstack) ) 
