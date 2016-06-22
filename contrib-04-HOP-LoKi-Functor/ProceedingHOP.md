@@ -40,7 +40,7 @@ This creates `DaVinciDevWithHOPLoKi` folder, which will be our working folder.
 The LoKi toolkit lives in the `Phys/LoKiPhys` package. So first we move into the `DaVinciDevWithHOPLoKi` folder and download the package from the repository.
 
 ```bash
-mv ./DaVinciDevWithHOPLoKi
+cd ./DaVinciDevWithHOPLoKi
 getpack Phys/LoKiPhys
 ```
 
