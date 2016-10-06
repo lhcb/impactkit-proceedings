@@ -22,7 +22,7 @@ DaVinci().PrintFreq = 1000
 DaVinci().DataType = '2011'
 DaVinci().Simulation = True
 # Only ask for luminosity information when not using simulated data
-DaVinci().EvtMax = 50000
+DaVinci().EvtMax = -1
 DaVinci().CondDBtag = 'sim-20130522-vc-md100'
 DaVinci().DDDBtag = 'dddb-20130929'
 #MessageSvc().OutputLevel = DEBUG
@@ -31,16 +31,17 @@ DaVinci().DDDBtag = 'dddb-20130929'
 dtt = DecayTreeTuple('Bu2LLK_ee')
 dtt.Inputs = ['/Event/{0}/Phys/{1}/Particles'.format(stream, line)]
 #dtt.Decay = '[B0 -> K*(892)0  e- e+]CC'
-dtt.Decay = '[B0 -> ^K*(892)0 (J/psi(1S) -> ^e- ^e+ )]CC'
+dtt.Decay = '[B0 -> ^K*(892)0 ^(J/psi(1S) -> ^e- ^e+ )]CC'
 
 #dtt.addBranches({'B0'    : '[B0 -> K*(892)0 e- e+]CC',
 #                 'Kstar' : '[B0 -> ^K*(892)0 e- e+]CC',
 #                 'eplus' : '[B0 -> K*(892)0 ^e- e+]CC',
 #                 'eminus': '[B0 -> K*(892)0 e- ^e+]CC'})
-dtt.addBranches({'B0'    : '[^(B0 -> K*(892)0 (J/psi(1S) -> e- e+ ))]CC'})
-#                 'Kstar' : '[B0 -> ^K*(892)0 (J/psi(1S) -> e- e+ )]CC',
-#                 'eplus' : '[B0 -> K*(892)0 (J/psi(1S) -> ^e- e+ )]CC',
-#                 'eminus': '[B0 -> K*(892)0 (J/psi(1S) -> e- ^e+ )]CC'})
+dtt.addBranches({'B0'    : '[^(B0 -> K*(892)0 (J/psi(1S) -> e- e+ ))]CC',
+                 'Kst_892_0' : '[B0 -> ^K*(892)0 (J/psi(1S) -> e- e+ )]CC',
+                 'E1' : '[B0 -> K*(892)0 (J/psi(1S) -> ^e- e+ )]CC',
+                 'E2': '[B0 -> K*(892)0 (J/psi(1S) -> e- ^e+ )]CC',
+                 'JPs': '[B0 -> K*(892)0 ^(J/psi(1S) -> e- e+ )]CC'})
 
 b0_hybrid = dtt.B0.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_B0')
 

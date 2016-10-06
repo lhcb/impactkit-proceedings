@@ -221,8 +221,6 @@ namespace LoKi
       // ======================================================================
       bool has_electron (const LHCb::Particle *parent) const;
       bool has_only_electrons (const LHCb::Particle *parent) const;
-      /*void e_finder (const LHCb::Particle *parent) const;
-      void e_finder_other (const LHCb::Particle *parent) const;*/
       bool classify (const LHCb::Particle *parent) const;
       
       std::vector <LHCb::Particle*> *m_all_electrons  = new std::vector<LHCb::Particle*>;
