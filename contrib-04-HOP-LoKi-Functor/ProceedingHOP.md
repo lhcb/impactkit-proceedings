@@ -8,26 +8,26 @@ The goal of this project is to create a new LoKi functor and a new TupleTool to 
 
 ## Physics details
 
-For this we recommend to read at least the first three sections of the note presented in the project description. As explained     in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadron    ic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
+For this we recommend to read the first three sections of the note presented in the project description. As explained in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadronic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
 $$\alpha_{\mathrm{HOP}} = \frac{P_t^{\mathrm{h}}}{P_t^{\mathrm{e}}}$$
 this parameter is then used to scale the three-momentum of the electronic part of the decay:
 $$\overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-}) = \alpha_{\mathrm{HOP}} \times \overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-})$$
-this new three-momentum (together with the hadronic part) is then used to calculate the new invariant mass of the original particle. In theory this supposed to account for the bremstrallung losses of the final state electrons and positrons.
+This new three-momentum (together with the hadronic part) is then used to calculate the new invariant mass of the original $B$ particle. This accounts for the bremstrallung losses of the final state electrons and positrons.
 
 Our algorithm will treat all the decays in the following way:
 
-* find all the particles which further decay only into $e^{\pm}$
+* find all the particles which further decay exclusively into electrons and positrons
 * find all $e^{\pm}$ coming from semi-leptonic decays
-* add the four-momenta of these particles to obtain $P^{\mathrm{e}}$
+* add the four-momenta of the above-mentioned particles to obtain $P^{\mathrm{e}}$
 * find all particles which have no $e^{\pm}$ in their decay tree or are non-electronic basic particles
 * add the four-momenta of these particles to obtain $P^{\mathrm{h}}$
-* calculate the three-momentum component $P_t^{\mathrm{e/h}}$ of $P^{\mathrm{e/h}}$ transversal to the original $B$ flight dir    ection
+* calculate the three-momentum component $P_t^{\mathrm{e/h}}$ of $P^{\mathrm{e/h}}$ transversal to the original $B$ flight direction
 * calculate $\alpha_{\mathrm{HOP}}$ as the ratio of these two quantities
-* apply the $\alpha_{\mathrm{HOP}}$ correction as described above to all the $e^{\pm}$ in the final state and all particles which only have electron daughters
+* apply the $\alpha_{\mathrm{HOP}}$ correction as described above to all the $e^{\pm}$ in the final state 
 * calculate the new corrected four-momenta of $e^{\pm}$ and sum them to obtain $P_{\mathrm{corr}}^{\mathrm{e}}$
 * finally, add $P_{\mathrm{corr}}^{\mathrm{e}}$ and $P^{\mathrm{h}}$ and calculate the invariant mass of the resulting object
 
-This way we should be left with the corrected HOP mass of the original $B$.
+This way we are left with the corrected HOP mass of the original $B$.
 
 ## LoKi functor implementation
 
@@ -52,17 +52,15 @@ The algorithm we developed looks for all the children (of all generations) of $B
 2. one containing all the particles that have only electrons and/or positrons as childrens;
 3. a last one with the remaining electrons/positrons, namely those coming from particles that have both $e^\pm$ and other particles between their childres.
 
-This strategy allows us to profit from the better mass resolution introduced by the PV refitting, where possible (point 2.).
-
-We implemented at this purpose the `e_finder` and the `has_electron` functions.
+The choice of the container in point 2. allows us to profit from the better mass resolution introduced by the PV refitting, where possible.
 
 The four-momenta of all electrons and other particles are then summed up separately to obtain two `LorentzVector` variables `P_e_tot` and `P_h_tot` that are used to compute $\alpha$.
-This latter is then used to correct the momenta of the electronic part of the decay chain: it is multiplied to the space component of the four-momenta, while the energy component is re-computed as follows:
+This is later used to correct the momenta of the electrons/positrons in the decay chain: it is multiplied by the space component of the four-momenta, while the energy component is re-computed as follows:
 $$E_e = \sqrt{\alpha^2 * (p_X^ 2 + p_Y^ 2 +p_Z^ 2) + m_{e (PDG)}^2}$$
 
-The mother's corrected four-momentum is then computed summing the 4 moemnta of the daughters after having applied this correction, and the invariant mass is returned.
+The corrected four-momentum of the original particle is then computed summing the 4 momenta of the daughters after having applied this correction, and the invariant mass is returned.
 
-The code and headers in `Particles*.{cpp,h}` are repeated a second time for implementing the version of the code that considers the user-defined primary vertex: this just requires adding this vertex as an imput argument.
+The code and headers in `Particles38.{cpp,h}` are repeated a second time for implementing the version of the code that considers the user-defined primary vertex: this just requires adding this vertex as an input argument.
 
 The final modification that is required to the LoKi code is to add the following lines in Phys/LoKiPhys/python/LoKiPhys/functions.py:
 ```python
