@@ -402,8 +402,10 @@ LoKi::Particles::BremMCorrected::operator()
   //
 
   //fill m_electrons, m_electron_mothers and m_others respectively with electrons, partickes which have only electronic daughters and all other particles
-  e_finder(p->clone());
-  e_finder_other(p->clone());
+  /*e_finder(p->clone());
+  e_finder_other(p->clone());*/
+  classify(p->clone());
+
 
   LorentzVector P_h_tot, P_e_tot;
   LorentzVector P_e_corr_tot, P_e_corr_temp;
@@ -444,12 +446,39 @@ LoKi::Particles::BremMCorrected::operator()
   return corr_mass ;
 }
 
+bool LoKi::Particles::BremMCorrected::classify (const LHCb::Particle *parent) const {
+
+  if (!parent->isBasicParticle()){
+    if (has_only_electrons(parent)) {
+      m_electron_mothers->emplace_back(parent->clone());
+      for (const auto &child : parent->daughtersVector()) {
+        m_all_electrons->emplace_back(child->clone());
+      }
+    }
+    else {
+      for (const auto &child : parent->daughtersVector()) {
+        classify(child);
+      }
+    }
+  }
+  else {
+    if (parent->particleID().abspid() == 11) {
+      m_all_electrons->emplace_back(parent->clone());
+      m_rest_electrons->emplace_back(parent->clone());
+    }
+    else m_others->emplace_back(parent->clone());
+  }
+  return true;
+}
+
+
 bool LoKi::Particles::BremMCorrected::has_only_electrons (const LHCb::Particle *parent) const {
   for (const auto &child : parent->daughtersVector()) {
     if (child->particleID().abspid() != 11) return false ;
   }
-  return true ;
+  return true;
 }
+
 bool LoKi::Particles::BremMCorrected::has_electron (const LHCb::Particle *parent) const {
   for (const auto &child : parent->daughtersVector()) {
     if (!child->isBasicParticle()) {
@@ -459,17 +488,24 @@ bool LoKi::Particles::BremMCorrected::has_electron (const LHCb::Particle *parent
   }
   return false ;
 }
+
+/*
 void LoKi::Particles::BremMCorrected::e_finder (const LHCb::Particle *parent) const {
   for (const auto &child : parent->daughtersVector()) {
     if (child->isBasicParticle()) {
-      if (child->particleID().abspid() == 11) m_all_electrons->push_back(child->clone());
+      if (child->particleID().abspid() == 11) {
+        m_all_electrons->push_back(child->clone());
+        m_rest_electrons->push_back(child->clone());
+      }
       else m_others->push_back(child->clone());
     }
+    ///////////
     else {
       if (has_electron(child)) e_finder(child);
       else m_others->push_back(child->clone());
+
+      if (has_only_electrons(child)) m_electron_mothers->push_back(child->clone());
     }
-    if (!child->isBasicParticle() && has_only_electrons(child)) m_electron_mothers->push_back(child->clone());
   }
 }
 void LoKi::Particles::BremMCorrected::e_finder_other (const LHCb::Particle *parent) const {
@@ -480,7 +516,9 @@ void LoKi::Particles::BremMCorrected::e_finder_other (const LHCb::Particle *pare
     }
     else if (has_electron(child)) e_finder_other(child);
   }
-}
+}*/
+
+
 // ============================================================================
 //  OPTIONAL: the specific printout
 // ============================================================================
@@ -545,8 +583,7 @@ LoKi::Particles::BremMCorrectedWithBestVertex::operator()
   //
 
   //fill m_electrons and m_others respectively with electrons and all other particles
-  e_finder(p->clone());
-  e_finder_other(p->clone());
+  classify(p->clone());
 
   std::cout << m_electron_mothers->size() << "  " << m_rest_electrons->size() << "  " << m_all_electrons->size() << std::endl;
 
@@ -590,12 +627,39 @@ LoKi::Particles::BremMCorrectedWithBestVertex::operator()
   return corr_mass ;
 }
 
+bool LoKi::Particles::BremMCorrectedWithBestVertex::classify (const LHCb::Particle *parent) const {
+
+  if (!parent->isBasicParticle()){
+    if (has_only_electrons(parent)) {
+      m_electron_mothers->emplace_back(parent->clone());
+      for (const auto &child : parent->daughtersVector()) {
+        m_all_electrons->emplace_back(child->clone());
+      }
+    }
+    else {
+      for (const auto &child : parent->daughtersVector()) {
+        classify(child);
+      }
+    }
+  }
+  else {
+    if (parent->particleID().abspid() == 11) {
+      m_all_electrons->emplace_back(parent->clone());
+      m_rest_electrons->emplace_back(parent->clone());
+    }
+    else m_others->emplace_back(parent->clone());
+  }
+  return true;
+}
+
+
 bool LoKi::Particles::BremMCorrectedWithBestVertex::has_only_electrons (const LHCb::Particle *parent) const {
   for (const auto &child : parent->daughtersVector()) {
     if (child->particleID().abspid() != 11) return false ;
   }
-  return true ;
+  return true;
 }
+
 bool LoKi::Particles::BremMCorrectedWithBestVertex::has_electron (const LHCb::Particle *parent) const {
   for (const auto &child : parent->daughtersVector()) {
     if (!child->isBasicParticle()) {
@@ -604,28 +668,6 @@ bool LoKi::Particles::BremMCorrectedWithBestVertex::has_electron (const LHCb::Pa
     else if (child->particleID().abspid() == 11) return true ;
   }
   return false ;
-}
-void LoKi::Particles::BremMCorrectedWithBestVertex::e_finder (const LHCb::Particle *parent) const {
-  for (const auto &child : parent->daughtersVector()) {
-    if (child->isBasicParticle()) {
-      if (child->particleID().abspid() == 11) m_all_electrons->push_back(child->clone());
-      else m_others->push_back(child->clone());
-    }
-    else {
-      if (has_electron(child)) e_finder(child);
-      else m_others->push_back(child->clone());
-    }
-    if (!child->isBasicParticle() && has_only_electrons(child)) m_electron_mothers->push_back(child->clone());
-  }
-}
-void LoKi::Particles::BremMCorrectedWithBestVertex::e_finder_other (const LHCb::Particle *parent) const {
-  for (const auto &child : parent->daughtersVector()) {
-    if (!child->isBasicParticle() && has_only_electrons(child)) continue;
-    if (child->isBasicParticle()) {
-      if (child->particleID().abspid() == 11) m_rest_electrons->push_back(child->clone());
-    }
-    else if (has_electron(child)) e_finder_other(child);
-  }
 }
 
 // ============================================================================
