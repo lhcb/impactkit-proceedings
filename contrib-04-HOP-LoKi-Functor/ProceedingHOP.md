@@ -4,20 +4,20 @@
 
 ## Introduction
 
-The goal of this project is to create a new LoKi functor and a new TupleTool to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. The $p_{\mathrm{T}}$ with respect to the $B$ flight direction is already implemented in the LoKi code. This is used later in the LoKi functor implementation. However, this is not the case for the TupleTool, so this function is implemented as well in the new one.
+The goal of this project is to create a new LoKi functor and a new TupleTool to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. The computation of $p_{\mathrm{T}}$ with respect to the $B$ flight direction is already implemented in the LoKi code. This is used later in the LoKi functor implementation of the HOP mass. However, this is not the case for the TupleTool, so this function is implemented as well in the new one.
 
 ## Physics details
 
-For this we recommend to read the first three sections of the note presented in the project description. As explained in the note we want to balance the three momentum components transversal to the $B$ flight direction of electronic and hadronic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
+The physics details are described in the first three sections of the note presented in the project description. As explained in the note we want to balance the three momentum components transversal to the $B$ flight direction of the electronic and hadronic parts of a given $B$ decay. The ratio of these transversal momenta defines the parameter $\alpha_{HOP}$:
 $$\alpha_{\mathrm{HOP}} = \frac{P_t^{\mathrm{h}}}{P_t^{\mathrm{e}}}$$
 this parameter is then used to scale the three-momentum of the electronic part of the decay:
 $$\overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-}) = \alpha_{\mathrm{HOP}} \times \overrightarrow{P^{\mathrm{corr}}}(\mathrm{e^+ / e^-})$$
-This new three-momentum (together with the hadronic part) is then used to calculate the new invariant mass of the original $B$ particle. This accounts for the bremstrallung losses of the final state electrons and positrons.
+This new three-momentum (together with the hadronic part) is later used to calculate the new invariant mass of the original $B$ particle. This accounts for the bremstrahlung losses of the final state electrons and positrons.
 
 Our algorithm will treat all the decays in the following way:
 
 * find all the particles which further decay exclusively into electrons and positrons
-* find all $e^{\pm}$ coming from semi-leptonic decays
+* find all $e^{\pm}$ coming from particles that have both $e^\pm$ and other particles between their children
 * add the four-momenta of the above-mentioned particles to obtain $P^{\mathrm{e}}$
 * find all particles which have no $e^{\pm}$ in their decay tree or are non-electronic basic particles
 * add the four-momenta of these particles to obtain $P^{\mathrm{h}}$
@@ -46,11 +46,11 @@ getpack Phys/LoKiPhys
 
 Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. This creates a new `Phys/LoKiPhys` containing the LoKiPhys code. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor is `Particles38.{cpp,h}`, since these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which will serve as a skeleton for our new functor. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected uses the primary vertex that is provided as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
 
-The algorithm we developed looks for all the children (of all generations) of $B$ and creates three lists:
+The algorithm we developed looks for all the children (of all generations) of the $B$ and creates three lists:
 
 1. one containing all the non-electron children;
-2. one containing all the particles that have only electrons and/or positrons as childrens;
-3. a last one with the remaining electrons/positrons, namely those coming from particles that have both $e^\pm$ and other particles between their childres.
+2. one containing all the particles that have only electrons and/or positrons as children;
+3. a last one with the remaining electrons/positrons, namely those coming from particles that have both $e^\pm$ and other particles between their children.
 
 The choice of the container in point 2. allows us to profit from the better mass resolution introduced by the PV refitting, where possible.
 
