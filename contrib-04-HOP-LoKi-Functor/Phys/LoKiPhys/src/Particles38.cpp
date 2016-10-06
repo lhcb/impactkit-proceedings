@@ -396,14 +396,9 @@ LoKi::Particles::BremMCorrected::operator()
     Error("EndVertex is invalid, return 'Invalid Mass'") ;
     return LoKi::Constants::InvalidMass ;
   }
-  //
   Assert ( LoKi::Vertices::VertexHolder::valid() ,
            "Vertex-Information is not valid"     ) ;
-  //
 
-  //fill m_electrons, m_electron_mothers and m_others respectively with electrons, partickes which have only electronic daughters and all other particles
-  /*e_finder(p->clone());
-  e_finder_other(p->clone());*/
   classify(p->clone());
 
 
@@ -542,19 +537,19 @@ LoKi::Particles::BremMCorrectedWithBestVertex::operator()
     Error("EndVertex is invalid, return 'Invalid Mass'") ;
     return LoKi::Constants::InvalidMass ;
   }
-  //
+
   const LHCb::VertexBase* pv = bestVertex ( p ) ;
   if ( 0 == pv )
   {
     Error("BestVertex is invalid, return 'Invalid Mass'") ;
     return LoKi::Constants::InvalidMass ;
   }
-  //
+
   setVertex ( pv ) ;
-  //
+
   Assert ( LoKi::Vertices::VertexHolder::valid() ,
            "Vertex-Information is not valid"     ) ;
-  //
+
 
   //fill m_electrons and m_others respectively with electrons and all other particles
   classify(p->clone());
@@ -595,7 +590,6 @@ LoKi::Particles::BremMCorrectedWithBestVertex::operator()
   m_electron_mothers->clear() ;
   m_others->clear() ;
 
-  //return alpha ;
   return corr_mass ;
 }
 
