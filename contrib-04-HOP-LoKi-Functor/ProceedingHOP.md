@@ -81,7 +81,7 @@ The TupleTool is also implemented in DaVinci. In this case, we started from the 
  getpack Phys/DecayTreeTuple
  ```
 
-Similarly to the LoKi functor case, the scheleton code for this TupleTool is based in a previous existing one: `TupleToolGeometry`. Since there was not a more similar one, we chose a general TupleTool. We recommend to start from the closest one to what you want to build.
+Similarly to the LoKi functor case, the skeleton code for this TupleTool is based in a previous existing one: `TupleToolGeometry`. Since there was not a more similar one, we chose a general TupleTool. We recommend to start from the closest one to what you want to build.
 
 All TupleTools should include at least: a constructor `TupleToolHOP::TupleToolHOP`, which inherits from `TupleToolBase`, an initializer `TupleToolHOP::initialize` where any external tool is loaded and initialized, and a fill method `TupleToolHOP::fill`, where the computations are done and the new variables are written to the ntuple. We choose to divide this last part in three functions in order to simplify and reuse code and we strongly suggest to do so:
 
