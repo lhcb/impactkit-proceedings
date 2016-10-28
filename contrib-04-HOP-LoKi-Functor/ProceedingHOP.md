@@ -4,7 +4,7 @@
 
 ## Introduction
 
-The goal of this project is to create a new LoKi functor and a new TupleTool to implement the ideas of the HOP mass, discussed in https://cds.cern.ch/record/2102345?ln=en. This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. The computation of $p_{\mathrm{T}}$ with respect to the $B$ flight direction is already implemented in the LoKi code. This is used later in the LoKi functor implementation of the HOP mass. However, this is not the case for the TupleTool, so this function is implemented as well in the new one.
+The goal of this project is to create a new LoKi functor and a new TupleTool to implement the ideas of the HOP mass, discussed in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). This tool is conceived to exploit the kinematic characteristics of $B$ decays into final states involving electrons, by computing a mass in which the bremsstrahlung losses are balanced along the $B$ momentum. The computation of $p_{\mathrm{T}}$ with respect to the $B$ flight direction is already implemented in the LoKi code. This is used later in the LoKi functor implementation of the HOP mass. However, this is not the case for the TupleTool, so this function is implemented as well in the new tool.
 
 ## Physics details
 
@@ -17,14 +17,23 @@ This new three-momentum (together with the hadronic part) is later used to calcu
 Our algorithm will treat all the decays in the following way:
 
 * find all the particles which further decay exclusively into electrons and positrons
+	
 * find all $e^{\pm}$ coming from particles that have both $e^\pm$ and other particles between their children
+	
 * add the four-momenta of the above-mentioned particles to obtain $P^{\mathrm{e}}$
+	
 * find all particles which have no $e^{\pm}$ in their decay tree or are non-electronic basic particles
+	
 * add the four-momenta of these particles to obtain $P^{\mathrm{h}}$
+	
 * calculate the three-momentum component $P_t^{\mathrm{e/h}}$ of $P^{\mathrm{e/h}}$ transversal to the original $B$ flight direction
+	
 * calculate $\alpha_{\mathrm{HOP}}$ as the ratio of these two quantities
+	
 * apply the $\alpha_{\mathrm{HOP}}$ correction as described above to all the $e^{\pm}$ in the final state 
+	
 * calculate the new corrected four-momenta of $e^{\pm}$ and sum them to obtain $P_{\mathrm{corr}}^{\mathrm{e}}$
+	
 * finally, add $P_{\mathrm{corr}}^{\mathrm{e}}$ and $P^{\mathrm{h}}$ and calculate the invariant mass of the resulting object
 
 This way we are left with the corrected HOP mass of the original $B$.
@@ -33,7 +42,9 @@ This way we are left with the corrected HOP mass of the original $B$.
 
 In order to solve this task we have to make changes to the DaVinci software package. So first, we will need to set up a development environment. Use the `lb-dev` command:
 
-`lb-dev --name DaVinciDevWithHOPLoKi DaVinci v39r1p1`
+```bash
+lb-dev --name DaVinciDevWithHOPLoKi DaVinci v39r1p1
+```
 
 This creates `DaVinciDevWithHOPLoKi` folder, which will be our working folder. 
 
@@ -49,7 +60,9 @@ Now you will be asked about the version of package you want to download. At the 
 The algorithm we developed looks for all the children (of all generations) of the $B$ and creates three lists:
 
 1. one containing all the non-electron children;
+
 2. one containing all the particles that have only electrons and/or positrons as children;
+
 3. a last one with the remaining electrons/positrons, namely those coming from particles that have both $e^\pm$ and other particles between their children.
 
 The choice of the container in point 2. allows us to profit from the better mass resolution introduced by the PV refitting, where possible.
@@ -75,11 +88,11 @@ This informs DaVinci about the new LoKi Functors and gives them a name.
 
 The TupleTool is also implemented in DaVinci. In this case, we started from the most recent version available when the Impactkit took place, v40r1p3. All tuple tools live in the package `Phys/DecayTreeTuple`, so we need to download it:
 
- ```bash
- lb-dev --name DaVinciDevWithHOPTupleTool DaVinci v40r1p3`
- cd ./DaVinciDevWithHOPTupleTool
- getpack Phys/DecayTreeTuple
- ```
+```bash
+lb-dev --name DaVinciDevWithHOPTupleTool DaVinci v40r1p3
+cd ./DaVinciDevWithHOPTupleTool
+getpack Phys/DecayTreeTuple
+```
 
 Similarly to the LoKi functor case, the scheleton code for this TupleTool is based in a previous existing one: `TupleToolGeometry`. Since there was not a more similar one, we chose a general TupleTool. We recommend to start from the closest one to what you want to build.
 
@@ -89,8 +102,21 @@ All TupleTools should include at least: a constructor `TupleToolHOP::TupleToolHO
 
 - `TupleToolHOP::HOPProjectMomentum`: takes two particles as input, the first one is assumed to be the top of the decay. The direction of flight of this particle is obtained taking the best interaction vertex associated to it and its decay vertex. Then the transverse momentum of the second particle with respect to this direction is computed and returned.
 
-- `TupleToolHOP::fill`: gets the top particle, the partice for which the variables should be computed, a string with the head name that will be used for the names of the variables that will be written to the ntuple and the ntuple itself as input. It first checks that the particle for which the variables should be computed is the same as the top of the chain. Since our algorithm is recursive on all the decay chain we only need to run it once from the top of it. Then the daughters are classified using the `TupleToolHOP::ClassifyParticles` function and their transverse momentum with respect to the direction of flight of the top particle obtained with the `TupleToolHOP::HOPProjectMomentum`. The transverse momentum for all electron and non-electron particles are added up separately and the HOP ratio is computed. This value is stored in the ntuple in the variable head\_HOP. Afterwards, it is used to correct the 4-momentum of each particle in the electron container. Finally, all the 4-momenta of the electron particles are sumed up and added to the 4-momentum of the non-electron particles. The mother's corrected mass is obtained from this total corrected 4-momentum and stored in the ntuple with the name head\_HOP\_MASS. The electron corrected mass is also obtained from the corrected 4-momentum of all the electron particles added together and is saved as head\_HOP\_ELECTRON\_MASS.
+- `TupleToolHOP::fill`: gets the top particle, the partice for which the variables should be computed, a string with the head name that will be used for the names of the variables that will be written to the ntuple and the ntuple itself as input. It first checks that the particle for which the variables should be computed is the same as the top of the chain. Since our algorithm is recursive on all the decay chain we only need to run it once from the top of it. Then the daughters are classified using the `TupleToolHOP::ClassifyParticles` function and their transverse momentum with respect to the direction of flight of the top particle obtained with the `TupleToolHOP::HOPProjectMomentum`. The transverse momentum for all electron and non-electron particles are added up separately and the HOP ratio is computed. This value is stored in the ntuple in the variable head\_HOP. Afterwards, it is used to correct the 4-momentum of each particle in the electron container. Finally, all the 4-momenta of the electron particles are sumed together and added to the 4-momentum of the non-electron particles. The mother's corrected mass is obtained from this total corrected 4-momentum and stored in the ntuple with the name head\_HOP\_MASS. The electron corrected mass is also obtained from the corrected 4-momentum of all the electron particles added together and is saved as head\_HOP\_ELECTRON\_MASS.
+
 
 ## Results and comparision between tools
 
+To check their performance both tools are applied to \BdKstee and \BKemu simulated events and compared to the results from the ROOT macro used for the studies presented in in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). The HOP corrected mass is compared for both tools and the HOP ratio only for the TupleTool since this variable is also written to the output tree by the TupleTool but it's not returned by the LoKi functor. Results are presented in figures \ref{fig:B2Kstee-HOPMass}, \ref{fig:B2Kstee-HOP}, \ref{fig:B2Kemu-HOPMass} and \ref{fig:B2Kemu-HOP} showing a perfect agreement between both tools and the reference macro. It can be concluded then that the tools are working as expected and ready to be released.
+
+![HOP corrected mass for simulated \BdKstee candidates\label{fig:B2Kstee-HOPMass}](figs/B2Kstee_HOPMass.png){ width=10cm }
+
+![HOP ratio for simulated \BdKstee candidates\label{fig:B2Kstee-HOP}](figs/B2Kstee_HOP.png){ width=10cm }
+
+![HOP corrected mass for simulated \BKemu candidates\label{fig:B2Kemu-HOPMass}](figs/B2Kemu_HOP.png){ width=10cm }
+
+![HOP ratio for simulated \BKemu candidates\label{fig:B2Kemu-HOP}](figs/B2Kemu_HOPMass.png){ width=10cm }
+
 ## Conclusions
+
+The concept of the HOP mass introduced in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en) is implemented in the \lhcb software by means of a LoKi functor and a TupleTool. The technical details of the implementation and usage of the tools are described both to document them and also to serve as a guide on how to proceed when developing this kind of tools for the first time. Then the results are compared to those obtained for the studies in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). A perfect agreement is found proving that the tools are working as expected and ready to be incorporated to the \lhcb software.
