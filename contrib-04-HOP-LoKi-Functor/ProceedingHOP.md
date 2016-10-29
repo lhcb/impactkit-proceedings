@@ -117,3 +117,7 @@ To check their performance both tools are applied to \BdKstee and \BKemu simulat
 # Conclusions
 
 The concept of the HOP mass introduced in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en) is implemented in the \lhcb software by means of a LoKi functor and a TupleTool. The technical details of the implementation and usage of the tools are described both to document them and also to serve as a guide on how to proceed when developing this kind of tools for the first time. Then the results are compared to those obtained for the studies in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). A perfect agreement is found proving that the tools are working as expected and ready to be incorporated to the \lhcb software.
+
+# Acknowledgements
+
+We want to express our immens gratitude to the organisers, teachers and helpers of the Impact Kit workshop for the nice and useful tutorials they prepared and shared with us. It was a very fruitful experience as proven in the work presented in this document. Special thanks to Martino Borsato and Francesco Polci for being available and willing to answer all our questions about the HOP technique and providing their macros to ease the testing and debugging of the tools. Last but not least, big thanks to Albert Puig for supervising the project since the Impact Kit hackathon and through all these months and being always available for helping with any question or problem we had. 
