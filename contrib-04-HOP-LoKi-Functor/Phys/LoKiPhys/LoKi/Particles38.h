@@ -47,11 +47,10 @@ namespace LoKi
      *  @date   2010-10-23
      */
     // ========================================================================
-    class GAUDI_API PtFlight
-      : public  LoKi::Particles::TransverseMomentumRel  
-      , public  LoKi::Vertices::VertexHolder    
+    struct GAUDI_API PtFlight
+      : LoKi::Particles::TransverseMomentumRel  
+      , LoKi::Vertices::VertexHolder    
     {
-    public:
       // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
@@ -75,11 +74,6 @@ namespace LoKi
       result_type operator() ( argument p ) const override;
       /// OPTIONAL: the specific printout 
       std::ostream& fillStream( std::ostream& s ) const override;
-      // ======================================================================
-    private:
-      // ======================================================================
-      /// default constructor is disabled 
-      PtFlight ( ) ;
       // ======================================================================
     public:
       // ======================================================================
@@ -134,9 +128,8 @@ namespace LoKi
      *  @date   2010-10-23
      */
     // ========================================================================
-    class GAUDI_API MCorrected : public  LoKi::Particles::PtFlight  
+    struct GAUDI_API MCorrected : LoKi::Particles::PtFlight  
     {
-    public:
       // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
@@ -161,14 +154,7 @@ namespace LoKi
       /// OPTIONAL: the specific printout 
       std::ostream& fillStream( std::ostream& s ) const override;
       // ======================================================================
-    private:
-      // ======================================================================
-      /// default constructor is disabled 
-      MCorrected ( ) ;
-      // ======================================================================
     } ;
-
-
     // ========================================================================
     /** @class BremMCorrected
      *  Simple evaluator for 'HOP' mass 
@@ -180,9 +166,8 @@ namespace LoKi
      *  @date   2017-01-17
      */
     // ========================================================================
-    class GAUDI_API BremMCorrected : public  LoKi::Particles::PtFlight 
+    struct GAUDI_API BremMCorrected : LoKi::Particles::PtFlight 
     {
-    public:
       // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
@@ -206,24 +191,17 @@ namespace LoKi
       result_type operator () ( argument p ) const override;
       // OPTIONAL: the specific printout
       std::ostream& fillStream( std::ostream& s ) const override;
-
-    private:
-      // ======================================================================
-      /// default constructor is disabled 
-      BremMCorrected ( ) ;
       // ======================================================================
       bool has_electron (const LHCb::Particle *parent) const;
       bool has_only_electrons (const LHCb::Particle *parent) const;
       bool classify (const LHCb::Particle *parent) const;
-      
       std::vector <LHCb::Particle*> *m_all_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_rest_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_electron_mothers  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_others  = new std::vector<LHCb::Particle*>;
-
       static constexpr double m_e_PDG = 0.510998910;
+      // ========================================================================
     };
-
     // ========================================================================
     /** @class PtFlightWithBestVertex 
      *  Simple evaluator for transverse momentum relative to flight direction 
@@ -233,11 +211,10 @@ namespace LoKi
      *  @thanks Mike Williams
      */
     // ========================================================================
-    class GAUDI_API PtFlightWithBestVertex 
-      : public          LoKi::Particles::PtFlight 
-      , public virtual  LoKi::AuxDesktopBase 
+    struct GAUDI_API PtFlightWithBestVertex 
+      :          LoKi::Particles::PtFlight 
+      , virtual  LoKi::AuxDesktopBase 
     {
-    public: 
       // =====================================================================
       /// constructor 
       PtFlightWithBestVertex();
@@ -269,9 +246,8 @@ namespace LoKi
      *  @thanks Mike Williams
      */
     // ========================================================================
-    class GAUDI_API MCorrectedWithBestVertex : public PtFlightWithBestVertex 
+    struct GAUDI_API MCorrectedWithBestVertex : PtFlightWithBestVertex 
     {
-    public: 
       // =====================================================================
       /// constructor 
       MCorrectedWithBestVertex() = default;
@@ -294,9 +270,8 @@ namespace LoKi
      *  @date   2017-01-17
      */
     // ========================================================================
-    class GAUDI_API BremMCorrectedWithBestVertex : public PtFlightWithBestVertex 
+    struct GAUDI_API BremMCorrectedWithBestVertex : PtFlightWithBestVertex 
     {
-    public: 
       // =====================================================================
       /// constructor 
       BremMCorrectedWithBestVertex() = default;
@@ -306,17 +281,13 @@ namespace LoKi
       result_type operator() ( argument p ) const override;
       /// OPTIONAL: the specific printout 
       std::ostream& fillStream( std::ostream& s ) const override;
-    private:      
       bool has_electron (const LHCb::Particle *parent) const;
       bool has_only_electrons (const LHCb::Particle *parent) const;
       bool classify (const LHCb::Particle *parent) const;
-
-      
       std::vector <LHCb::Particle*> *m_all_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_rest_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_electron_mothers  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_others  = new std::vector<LHCb::Particle*>;
-
       static constexpr double m_e_PDG = 0.510998910;
       // ======================================================================
     } ;  
