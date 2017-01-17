@@ -26,7 +26,7 @@ A.Golutvin, P.Koppenburg have been used in the design.
 # =============================================================================
 __author__  = "Vanya BELYAEV Ivan.Belyaev@nikhef.nl"
 __date__    = "????-??-??"
-__version__ = "Version $Revision: 198748 $"
+__version__ = "Version $Revision: $"
 # =============================================================================
 
 
@@ -680,7 +680,7 @@ APPLYVERTEXFUNTOENDVERT = VFASPF
 # CONTEXT-DEPENDENT FUNCTORS
 # =============================================================================
 ## @see LoKi::Cuts::BPV 
-BPV    = LoKi.Particles.BestPrimaryVertexAdaptor 
+BPV    = LoKi.Particles.BestPrimaryVertexAdaptor
 ## @see LoKi::Cuts::BPVVALID
 BPVVALID    = LoKi.Particles.IsBestPVValid
 
@@ -1025,7 +1025,7 @@ PTFLIGHT    = LoKi.Particles.PtFlight
 BPVPTFLIGHT = LoKi.Particles.PtFlightWithBestVertex () 
 ## @see LoKi::Cuts::CORRM
 CORRM       = LoKi.Particles.MCorrected 
-## @see LoKi::Cuts::BPVCORR
+## @see LoKi::Cuts::BPVCORRM
 BPVCORRM    = LoKi.Particles.MCorrectedWithBestVertex ()  
 
 
