@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # =============================================================================
-# $Id: functions.py 198748 2015-12-05 15:12:22Z ibelyaev $ 
-# =============================================================================
 ## @file functions.py LoKiPhys/functions.py
 #  The set of basic decorator for objects from LoKiPhys library
 #  The file is a part of LoKi and Bender projects
@@ -13,16 +11,6 @@
 #  Galina PAKHLOVA and Sergey BARSUK.  Many bright ideas, 
 #  contributions and advices from G.Raven, J.van Tilburg, 
 #  A.Golutvin, P.Koppenburg have been used in the design.
-#
-#  By usage of this code one clearly states the disagreement 
-#  with the campain of Dr.O.Callot et al.: 
-#    ``No Vanya's lines are allowed in LHCb/Gaudi software.''
-#    
-#  @author Vanya BELYAEV ibelyaev@physics.syr.edu
-#
-#                    $Revision: 198748 $
-#  Last modification $Date: 2015-12-05 16:12:22 +0100 (Sat, 05 Dec 2015) $
-#                 by $Author: ibelyaev $
 # =============================================================================
 """
 The set of basic decorators for obejcts from LoKiPhys library
@@ -34,20 +22,11 @@ The package has been designed with the kind help from
 Galina PAKHLOVA and Sergey BARSUK.  Many bright ideas, 
 contributions and advices from G.Raven, J.van Tilburg, 
 A.Golutvin, P.Koppenburg have been used in the design.
-
-By usage of this code one clearly states the disagreement 
-with the campain of Dr.O.Callot et al.: 
-``No Vanya's lines are allowed in LHCb/Gaudi software.''
-
-                  $Revision: 198748 $
-Last modification $Date: 2015-12-05 16:12:22 +0100 (Sat, 05 Dec 2015) $
-               by $Author: ibelyaev $
-
 """
 # =============================================================================
 __author__  = "Vanya BELYAEV Ivan.Belyaev@nikhef.nl"
 __date__    = "????-??-??"
-__version__ = "Version $Revision: 198748 $"
+__version__ = "Version $Revision: $"
 # =============================================================================
 
 
@@ -477,6 +456,11 @@ DR2      = LoKi.Particles.DeltaR2
 ## @see LoKi::Cuts::TRPCHI2 
 TRPCHI2  = LoKi.Particles.TrackChi2Prob ()
 
+## @see LoKi::Cuts::TZ
+TZ       = LoKi.Particles.Tz
+## @see LoKi::Cuts::BPVTZ
+BPVTZ    = LoKi.Particles.TzWithTheBestPV   
+
 ## @see LoKi::Cuts::TRGHP
 TRGHP        = LoKi.Particles.GhostProbability ()
 ## @see LoKi::Cuts::TRGHOSTPROB
@@ -696,7 +680,10 @@ APPLYVERTEXFUNTOENDVERT = VFASPF
 # CONTEXT-DEPENDENT FUNCTORS
 # =============================================================================
 ## @see LoKi::Cuts::BPV 
-BPV    = LoKi.Particles.BestPrimaryVertexAdaptor 
+BPV    = LoKi.Particles.BestPrimaryVertexAdaptor
+## @see LoKi::Cuts::BPVVALID
+BPVVALID    = LoKi.Particles.IsBestPVValid
+
 # =============================================================================
 BPVDIRA               = LoKi.Particles.CosineDirectionAngleWithTheBestPV()
 BESTPVCOSPF           = LoKi.Particles.CosineDirectionAngleWithTheBestPV() ## by Vava GLIGOROV
@@ -1038,7 +1025,7 @@ PTFLIGHT    = LoKi.Particles.PtFlight
 BPVPTFLIGHT = LoKi.Particles.PtFlightWithBestVertex () 
 ## @see LoKi::Cuts::CORRM
 CORRM       = LoKi.Particles.MCorrected 
-## @see LoKi::Cuts::BPVCORR
+## @see LoKi::Cuts::BPVCORRM
 BPVCORRM    = LoKi.Particles.MCorrectedWithBestVertex ()  
 
 

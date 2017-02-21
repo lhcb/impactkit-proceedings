@@ -1,4 +1,3 @@
-// $Id: Particles38.h 183398 2015-02-02 16:34:33Z ibelyaev $
 // ============================================================================
 #ifndef LOKI_PARTICLES38_H 
 #define LOKI_PARTICLES38_H 1
@@ -27,14 +26,6 @@
  *  contributions and advices from G.Raven, J.van Tilburg,
  *  A.Golutvin, P.Koppenburg have been used in the design.
  *
- *   By usage of this code one clearly states the disagreement 
- *    with the smear campaign of Dr.O.Callot et al.: 
- *  ``No Vanya's lines are allowed in LHCb/Gaudi software.''
- * 
- *  Last modification $Date: 2015-02-02 17:34:33 +0100 (Mon, 02 Feb 2015) $
- *                 by $Author: ibelyaev $
- *  Version           $Revision: 183398 $ 
- *
  *  @thanks Mike Williams
  *
  *  @author Vanya Belyaev Ivan.Belyaev@nikhef.nl
@@ -46,12 +37,20 @@ namespace LoKi
   // ==========================================================================
   namespace Particles 
   {
-
-    class GAUDI_API PtFlight
-      : public  LoKi::Particles::TransverseMomentumRel  
-      , public  LoKi::Vertices::VertexHolder    
+    // ========================================================================
+    /** @class PtFlight 
+     *  Simple evaluator for transverse momentum relative to flight direction 
+     *  @see LoKi::Cuts:PTFLIGHT 
+     *  @see LoKi::Particles::TransverseMomentumRel  
+     *  @thanks Mike Williams
+     *  @author Vanya Belyaev Ivan.Belyaev@nikhef.nl
+     *  @date   2010-10-23
+     */
+    // ========================================================================
+    struct GAUDI_API PtFlight
+      : LoKi::Particles::TransverseMomentumRel  
+      , LoKi::Vertices::VertexHolder    
     {
-    public:
       // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
@@ -69,19 +68,12 @@ namespace LoKi
       PtFlight ( const double x , 
                  const double y , 
                  const double z ) ;
-      /// MANDATORY: virtual desctructor 
-      virtual ~PtFlight() ;
       /// MANDATORY: clone method ("virtual constructor")
-      virtual  PtFlight* clone() const ;
+      PtFlight* clone() const override;
       /// MANDATORY: the only one essential method 
-      result_type operator() ( argument p ) const ;
+      result_type operator() ( argument p ) const override;
       /// OPTIONAL: the specific printout 
-      virtual std::ostream& fillStream( std::ostream& s ) const ;
-      // ======================================================================
-    private:
-      // ======================================================================
-      /// default constructor is disabled 
-      PtFlight ( ) ;
+      std::ostream& fillStream( std::ostream& s ) const override;
       // ======================================================================
     public:
       // ======================================================================
@@ -136,9 +128,8 @@ namespace LoKi
      *  @date   2010-10-23
      */
     // ========================================================================
-    class GAUDI_API MCorrected : public  LoKi::Particles::PtFlight  
+    struct GAUDI_API MCorrected : LoKi::Particles::PtFlight  
     {
-    public:
       // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
@@ -156,38 +147,27 @@ namespace LoKi
       MCorrected ( const double x , 
                    const double y , 
                    const double z ) ;
-      /// MANDATORY: virtual desctructor 
-      virtual ~MCorrected() ;
       /// MANDATORY: clone method ("virtual constructor")
-      virtual  MCorrected* clone() const ;
+      MCorrected* clone() const override;
       /// MANDATORY: the only one essential method 
-      result_type operator() ( argument p ) const ;
+      result_type operator() ( argument p ) const override;
       /// OPTIONAL: the specific printout 
-      virtual std::ostream& fillStream( std::ostream& s ) const ;
-      // ======================================================================
-    private:
-      // ======================================================================
-      /// default constructor is disabled 
-      MCorrected ( ) ;
+      std::ostream& fillStream( std::ostream& s ) const override;
       // ======================================================================
     } ;
-
-
     // ========================================================================
     /** @class BremMCorrected
      *  Simple evaluator for 'HOP' mass 
      *  
      *  For more information see 
      *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
-     *   </a>
      *
      *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
-     *  @date   2016-06-03
+     *  @date   2017-01-17
      */
     // ========================================================================
-    class GAUDI_API BremMCorrected : public  LoKi::Particles::PtFlight 
+    struct GAUDI_API BremMCorrected : LoKi::Particles::PtFlight 
     {
-    public:
       // ======================================================================
       /** constructor from the primary vertex
        *  @param pv  the primary vertex 
@@ -205,32 +185,23 @@ namespace LoKi
       BremMCorrected ( const double x , 
 		       const double y , 
 		       const double z ) ;
-      // MANDATORY: virtual destructor
-      virtual ~BremMCorrected();
       // MANDATORY: clone method ("virtual constructor") 
-      virtual BremMCorrected* clone() const ;
+      BremMCorrected* clone() const override;
       // MANDATORY: the only one essential method      
-      result_type operator () ( argument p ) const ;
+      result_type operator () ( argument p ) const override;
       // OPTIONAL: the specific printout
-      virtual std::ostream& fillStream( std::ostream& s ) const ;
-
-    private:
-      // ======================================================================
-      /// default constructor is disabled 
-      BremMCorrected ( ) ;
+      std::ostream& fillStream( std::ostream& s ) const override;
       // ======================================================================
       bool has_electron (const LHCb::Particle *parent) const;
       bool has_only_electrons (const LHCb::Particle *parent) const;
       bool classify (const LHCb::Particle *parent) const;
-      
       std::vector <LHCb::Particle*> *m_all_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_rest_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_electron_mothers  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_others  = new std::vector<LHCb::Particle*>;
-
       static constexpr double m_e_PDG = 0.510998910;
+      // ========================================================================
     };
-
     // ========================================================================
     /** @class PtFlightWithBestVertex 
      *  Simple evaluator for transverse momentum relative to flight direction 
@@ -240,22 +211,19 @@ namespace LoKi
      *  @thanks Mike Williams
      */
     // ========================================================================
-    class GAUDI_API PtFlightWithBestVertex 
-      : public          LoKi::Particles::PtFlight 
-      , public virtual  LoKi::AuxDesktopBase 
+    struct GAUDI_API PtFlightWithBestVertex 
+      :          LoKi::Particles::PtFlight 
+      , virtual  LoKi::AuxDesktopBase 
     {
-    public: 
       // =====================================================================
       /// constructor 
-      PtFlightWithBestVertex() ;
-      /// MANDATORY: virtual destructor 
-      virtual ~PtFlightWithBestVertex() ;
+      PtFlightWithBestVertex();
       /// MANDATORY: clone method ("virtual constructor")
-      virtual  PtFlightWithBestVertex* clone() const ;
+      PtFlightWithBestVertex* clone() const override;
       /// MANDATORY: the only one essential method 
-      result_type operator() ( argument p ) const ;
+      result_type operator() ( argument p ) const override;
       /// OPTIONAL: the specific printout 
-      virtual std::ostream& fillStream( std::ostream& s ) const ;
+      std::ostream& fillStream( std::ostream& s ) const override;
       // ======================================================================
     } ;  
     // ========================================================================
@@ -278,20 +246,17 @@ namespace LoKi
      *  @thanks Mike Williams
      */
     // ========================================================================
-    class GAUDI_API MCorrectedWithBestVertex : public PtFlightWithBestVertex 
+    struct GAUDI_API MCorrectedWithBestVertex : PtFlightWithBestVertex 
     {
-    public: 
       // =====================================================================
       /// constructor 
-      MCorrectedWithBestVertex() ;
-      /// MANDATORY: virtual destructor 
-      virtual ~MCorrectedWithBestVertex() ;
+      MCorrectedWithBestVertex() = default;
       /// MANDATORY: clone method ("virtual constructor")
-      virtual  MCorrectedWithBestVertex* clone() const ;
+      MCorrectedWithBestVertex* clone() const override;
       /// MANDATORY: the only one essential method 
-      result_type operator() ( argument p ) const ;
+      result_type operator() ( argument p ) const override;
       /// OPTIONAL: the specific printout 
-      virtual std::ostream& fillStream( std::ostream& s ) const ;
+      std::ostream& fillStream( std::ostream& s ) const override;
       // ======================================================================
     } ;  
     // ========================================================================
@@ -300,37 +265,29 @@ namespace LoKi
      *  
      *  For more information see 
      *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
-     *   </a>
      *
      *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
-     *  @date   2016-06-03
+     *  @date   2017-01-17
      */
     // ========================================================================
-    class GAUDI_API BremMCorrectedWithBestVertex : public PtFlightWithBestVertex 
+    struct GAUDI_API BremMCorrectedWithBestVertex : PtFlightWithBestVertex 
     {
-    public: 
       // =====================================================================
       /// constructor 
-      BremMCorrectedWithBestVertex() ;
-      /// MANDATORY: virtual destructor 
-      virtual ~BremMCorrectedWithBestVertex() ;
+      BremMCorrectedWithBestVertex() = default;
       /// MANDATORY: clone method ("virtual constructor")
-      virtual  BremMCorrectedWithBestVertex* clone() const ;
+      BremMCorrectedWithBestVertex* clone() const override;
       /// MANDATORY: the only one essential method 
-      result_type operator() ( argument p ) const ;
+      result_type operator() ( argument p ) const override;
       /// OPTIONAL: the specific printout 
-      virtual std::ostream& fillStream( std::ostream& s ) const ;
-    private:      
+      std::ostream& fillStream( std::ostream& s ) const override;
       bool has_electron (const LHCb::Particle *parent) const;
       bool has_only_electrons (const LHCb::Particle *parent) const;
       bool classify (const LHCb::Particle *parent) const;
-
-      
       std::vector <LHCb::Particle*> *m_all_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_rest_electrons  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_electron_mothers  = new std::vector<LHCb::Particle*>;
       std::vector <LHCb::Particle*> *m_others  = new std::vector<LHCb::Particle*>;
-
       static constexpr double m_e_PDG = 0.510998910;
       // ======================================================================
     } ;  
@@ -340,14 +297,6 @@ namespace LoKi
   namespace Cuts 
   {
     // ========================================================================    
-    // Suppress Intel compiler warnings about missing default constructor
-    // In this case the compiler generated constructor is fine, since there are
-    // no member data to be initialised
-#ifdef __INTEL_COMPILER
-#pragma warning(disable:854)
-#pragma warning(push)
-#endif
-    // ========================================================================
     /** @typedef PTFLIGHT 
      *  Simple functor to evaluate the transverse momentum with respect to 
      *  particle fligth direction
@@ -442,22 +391,47 @@ namespace LoKi
      *  @thanks Mike Williams
      */
     typedef LoKi::Particles::MCorrectedWithBestVertex                BPVCORRM ;
-
-
     // ========================================================================
-    //** add documentation here
-    typedef LoKi::Particles::BremMCorrected                                 HOPM ;
-    //** add documentation here
-    typedef LoKi::Particles::BremMCorrectedWithBestVertex                BPVHOPM ;
-  
-
-
-
-
+    /** @typedef HOPM
+     *  Simple functor to evaluate the HOP mass with respect to 
+     *  particle flight direction
+     *
+     *  For more information see 
+     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
+     *
+     *  @see LoKi::Particles::MCorrectedWithBestVertex
+     *  @see LoKi::Particles::MCorrected
+     *  @see LoKi::Particles::PtFlightWithBestVertex 
+     *  @see LoKi::Particles::PtFlight 
+     *  @see LoKi::Cuts::CORRM
+     *  @see LoKi::Cuts::PTFLIGHT
+     *  @see LoKi::Cuts::BPVPTFLIGHT
+     *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
+     *  @date   2017-01-17
+     *  @thanks Albert Puig Navarro
+     */
+    typedef LoKi::Particles::BremMCorrected                              HOPM ;
     // ========================================================================
-#ifdef __INTEL_COMPILER
-#pragma warning(pop) 
-#endif    
+    /** @typedef BPVCORRM 
+     *  Simple functor to evaluate the corrected mass with respect to 
+     *  particle flight direction
+     *
+     *  For more information see 
+     *  <a href="https://cds.cern.ch/record/2102345/files/LHCb-INT-2015-037.pdf">
+     *
+     *  @see LoKi::Particles::MCorrectedWithBestVertex
+     *  @see LoKi::Particles::MCorrected
+     *  @see LoKi::Particles::PtFlightWithBestVertex 
+     *  @see LoKi::Particles::PtFlight 
+     *  @see LoKi::Cuts::CORRM
+     *  @see LoKi::Cuts::PTFLIGHT
+     *  @see LoKi::Cuts::BPVPTFLIGHT
+     *  @authors Pavol Stefko pavol.stefko@epfl.ch, Guido Andreassi guido.andreassi@epfl.ch, Violaine Bellee violaine.bellee@epfl.ch
+     *  @date   2017-01-17
+     *  @thanks Albert Puig Navarro
+     */
+    typedef LoKi::Particles::BremMCorrectedWithBestVertex             BPVHOPM ;
+    // ========================================================================
     // ========================================================================
   } //                                              end of namespace LoKi::Cuts 
   // ==========================================================================
