@@ -29,7 +29,7 @@
  * <a href="https://cds.cern.ch/record/2102345?ln=en">LHCb-INT-2015-037</a>
  */
 
-/// anonymos namespace to hide local varibales 
+/// anonymos namespace to hide local variables 
 namespace 
 {
   // ==========================================================================

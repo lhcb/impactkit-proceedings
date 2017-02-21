@@ -120,4 +120,4 @@ The concept of the HOP mass introduced in [LHCb-INT-2015-037](https://cds.cern.c
 
 # Acknowledgements
 
-We want to express our immens gratitude to the organisers, teachers and helpers of the Impact Kit workshop for the nice and useful tutorials they prepared and shared with us. It was a very fruitful experience as proven in the work presented in this document. Special thanks to Martino Borsato and Francesco Polci for being available and willing to answer all our questions about the HOP technique and providing their macros to ease the testing and debugging of the tools.
+We want to express our immense gratitude to the organisers, teachers and helpers of the Impact Kit workshop for the nice and useful tutorials they prepared and shared with us. It was a very fruitful experience as proven in the work presented in this document. Special thanks go to Martino Borsato and Francesco Polci for being available and willing to answer all our questions about the HOP technique and providing their macros to ease the testing and debugging of the tools.
