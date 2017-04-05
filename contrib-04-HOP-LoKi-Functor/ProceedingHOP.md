@@ -37,22 +37,7 @@ This way we are left with the corrected HOP mass of the original $B$.
 
 # LoKi functor implementation
 
-In order to solve this task we have to make changes to the DaVinci software package. So first, we will need to set up a development environment. Use the `lb-dev` command:
-
-```bash
-lb-dev --name DaVinciDevWithHOPLoKi DaVinci v39r1p1
-```
-
-This creates `DaVinciDevWithHOPLoKi` folder, which will be our working folder. 
-
-The LoKi toolkit lives in the `Phys/LoKiPhys` package. So first we move into the `DaVinciDevWithHOPLoKi` folder and download the package from the repository.
-
-```bash
-cd ./DaVinciDevWithHOPLoKi
-getpack Phys/LoKiPhys
-```
-
-Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. This creates a new `Phys/LoKiPhys` containing the LoKiPhys code. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor is `Particles38.{cpp,h}`, since these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which correct the mass of the parent particle using the missing momentum transverse to the direction of flight to account for possible missing children particles. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected uses the primary vertex that is provided as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
+In order to solve this task we have to make changes to the DaVinci software package. So first, we need to set up a development environment for the head version of `DaVinci` using the LHCb tools. The LoKi toolkit lives in the `Phys/LoKiPhys` package, the head version of which we download from the `Phys` repository. According to the usual LHCb convention, the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor are `Particles38.{cpp,h}` because these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which are to some extent similar to the functors we want to write as they aim at correcting the mass of the parent particle using the missing momentum transverse to the direction of flight. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected uses the primary vertex that is provided as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
 
 The algorithm we developed looks for all the children (of all generations) of the $B$ and creates three lists:
 
@@ -83,15 +68,7 @@ This informs DaVinci about the new LoKi Functors and gives them a name.
 
 # TupleTool implementation
 
-The TupleTool is also implemented in DaVinci. In this case, we started from the most recent version available when the Impactkit took place, v40r1p3. All tuple tools live in the package `Phys/DecayTreeTuple`, so we need to download it:
-
-```bash
-lb-dev --name DaVinciDevWithHOPTupleTool DaVinci v40r1p3
-cd ./DaVinciDevWithHOPTupleTool
-getpack Phys/DecayTreeTuple
-```
-
-The skeleton code for this TupleTool is based on a previously existing one: `TupleToolGeometry`. Since there was not a more similar one, we chose a general TupleTool. We recommend to start from the closest one to what you want to build.
+The TupleTool is also implemented in DaVinci but tuple tools live in the package `Phys/DecayTreeTuple` which is downloaded from the `Phys` project. The skeleton code for this TupleTool is based on a previously existing one: `TupleToolGeometry`. Since there was not a more similar one, we chose a general TupleTool. We recommend to start from the closest one to what you want to build.
 
 All TupleTools should include at least: a constructor `TupleToolHOP::TupleToolHOP`, which inherits from `TupleToolBase`, an initializer `TupleToolHOP::initialize` where any external tool is loaded and initialized, and a fill method `TupleToolHOP::fill`, where the computations are done and the new variables are written to the ntuple. We choose to divide this last part in three functions in order to simplify and reuse code and we strongly suggest to do so:
 
