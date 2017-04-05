@@ -1,5 +1,5 @@
 ---
 title: Introducing the HOP mass in the LHCb software
 author: G. Andreassi, V. Bellée, C. Marin Benito, V. Franco Lima, P. Štefko, A. Puig Navarro
-abstract: As a project for the [2016 ImpactKit hackathon](https://lhcb.github.io/starterkit/archive/impactkit/2016/05/18/impactkit.html), a TupleTool and a LoKi functor implementing the HOP mass presented in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en) have been developed and tested to reproduce the results of the study. In the case of the TupleTool, additional useful quantities related to the HOP mass, such as the $\alpha$ value, are also stored.
+abstract: As a project for the [2016 ImpactKit hackathon](https://lhcb.github.io/starterkit/archive/impactkit/2016/05/18/impactkit.html), a TupleTool and a LoKi functor implementing the HOP mass presented in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en) have been developed and tested to reproduce the results of the study. In the case of the TupleTool, additional useful quantities related to the HOP mass, such as the $\alpha$ value, are also stored. Both tools have been merged in the appropriate packages in the lhcb software.
 ...

@@ -116,7 +116,7 @@ To check their performance both tools are applied to \BdKstee and \BKemu simulat
 
 # Conclusions
 
-The concept of the HOP mass introduced in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en) is implemented in the \lhcb software by means of a LoKi functor and a TupleTool. The technical details of the implementation and usage of the tools are described both to document them and also to serve as a guide on how to proceed when developing this kind of tools for the first time. Then the results are compared to those obtained for the studies in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). A perfect agreement is found proving that the tools are working as expected and ready to be incorporated to the \lhcb software.
+The concept of the HOP mass introduced in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en) is implemented in the \lhcb software by means of a LoKi functor and a TupleTool. The technical details of the implementation and usage of the tools are described both to document them and also to serve as a guide on how to proceed when developing this kind of tools for the first time. Then the results are compared to those obtained for the studies in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). A perfect agreement is found, so the tools have been added to the \lhcb software. The LoKi functor and the TupleTool have been incorporated into the `Phys/LoKiPhys` and the `Phys/DecayTreeTuple` packages respectively.
 
 # Acknowledgements
 
