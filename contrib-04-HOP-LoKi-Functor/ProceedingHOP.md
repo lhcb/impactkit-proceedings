@@ -52,7 +52,7 @@ cd ./DaVinciDevWithHOPLoKi
 getpack Phys/LoKiPhys
 ```
 
-Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. This creates a new `Phys/LoKiPhys` containing the LoKiPhys code. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor is `Particles38.{cpp,h}`, since these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which will serve as a skeleton for our new functor. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected uses the primary vertex that is provided as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
+Now you will be asked about the version of package you want to download. At the time of writing of this tutorial the reliably working version was `v11r7` so choose that one. This creates a new `Phys/LoKiPhys` containing the LoKiPhys code. According to the usual LHCb convention the C++ files are located in the `src` directory and header files are in the `LoKi` directory. The various LoKi functors are logically grouped in `Particles*.{cpp,h}` files. The files where we implemented our new HOP LoKi functor is `Particles38.{cpp,h}`, since these files already contain the MCorrected (CORRM) and MCorrectedWithBestVertex (BPVCORRM) functors, which correct the mass of the parent particle using the missing momentum transverse to the direction of flight to account for possible missing children particles. MCorrectedWithBestVertex implicitly takes the best primary vertex of $B$, whereas the MCorrected uses the primary vertex that is provided as an input argument. Following this example, we also create two new LoKi functors: BremMCorrected (HOPM) and BremMCorrectedWithBestVertex (BPVCORRM).
 
 The algorithm we developed looks for all the children (of all generations) of the $B$ and creates three lists:
 
@@ -66,18 +66,18 @@ The choice of the container in point 2. allows us to profit from the better mass
 
 The four-momenta of all electrons and other particles are then summed up separately to obtain two `LorentzVector` variables `P_e_tot` and `P_h_tot` that are used to compute $\alpha$.
 This is later used to correct the momenta of the electrons/positrons in the decay chain: it is multiplied by the space component of the four-momenta, while the energy component is re-computed as follows:
-$$E_e = \sqrt{\alpha^2 * (p_X^ 2 + p_Y^ 2 +p_Z^ 2) + m_{e (PDG)}^2}$$
+$$E_e = \sqrt{\alpha^2 * (p_X^ 2 + p_Y^ 2 +p_Z^ 2) + m_{e (PDG)}^2}.$$
 
 The corrected four-momentum of the original particle is then computed summing the 4 momenta of the daughters after having applied this correction, and the invariant mass is returned.
 
-The code and headers in `Particles38.{cpp,h}` are repeated a second time for implementing the version of the code that considers the user-defined primary vertex: this just requires adding this vertex as an input argument.
+The code and headers in `Particles38.{cpp,h}` also contain a version of the bremsstrahlung corrected mass that considers the best primary vertex: this just requires calling the previous method with this vertex as an input argument.
 
 The final modification that is required to the LoKi code is to add the following lines in Phys/LoKiPhys/python/LoKiPhys/functions.py:
 ```python
 # @see LoKi::Cuts::HOPM
 HOPM    = LoKi.Particles.BremMCorrected
 # @see LoKi::Cuts::BPVHOPM
-BPVHOPM = LoKi.Particles.BremMCorrectedWithBestVertex ()  
+BPVHOPM = LoKi.Particles.BremMCorrectedWithBestVertex ()
 ```
 This informs DaVinci about the new LoKi Functors and gives them a name.
 
@@ -91,7 +91,7 @@ cd ./DaVinciDevWithHOPTupleTool
 getpack Phys/DecayTreeTuple
 ```
 
-Similarly to the LoKi functor case, the skeleton code for this TupleTool is based in a previous existing one: `TupleToolGeometry`. Since there was not a more similar one, we chose a general TupleTool. We recommend to start from the closest one to what you want to build.
+The skeleton code for this TupleTool is based on a previously existing one: `TupleToolGeometry`. Since there was not a more similar one, we chose a general TupleTool. We recommend to start from the closest one to what you want to build.
 
 All TupleTools should include at least: a constructor `TupleToolHOP::TupleToolHOP`, which inherits from `TupleToolBase`, an initializer `TupleToolHOP::initialize` where any external tool is loaded and initialized, and a fill method `TupleToolHOP::fill`, where the computations are done and the new variables are written to the ntuple. We choose to divide this last part in three functions in order to simplify and reuse code and we strongly suggest to do so:
 
