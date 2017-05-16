@@ -84,7 +84,25 @@ All TupleTools should include at least: a constructor `TupleToolHOP::TupleToolHO
 
 # Results and comparision between tools
 
-To check their performance both tools are applied to \BdKstee and \BKemu simulated events and compared to the results from the ROOT macro used for the studies presented in in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). The HOP corrected mass is compared for both tools and the HOP ratio only for the TupleTool since this variable is also written to the output tree by the TupleTool but it's not returned by the LoKi functor. Results are presented in figures \ref{fig:B2Kstee-HOPMass}, \ref{fig:B2Kstee-HOP}, \ref{fig:B2Kemu-HOPMass} and \ref{fig:B2Kemu-HOP} showing a perfect agreement between both tools and the reference macro. It can be concluded then that the tools are working as expected and ready to be released.
+To check their performance, both tools are applied to \BdKstee and \BKemu simulated events and compared to the results from the ROOT macro used for the studies presented in in [LHCb-INT-2015-037](https://cds.cern.ch/record/2102345?ln=en). The HOP corrected mass is compared for both tools and the HOP ratio only for the TupleTool since this variable is also written to the output tree by the TupleTool but it's not returned by the LoKi functor.
+
+In order to provide the user with a starting point to use these tools, selected lines from the script used to compare the TupleTool and the LoKi functor are shown in the following, without the configurations specific to the data set. The tests were performed using `DaVinci v40r1p3` along with the appropriate packages of the version `v11r7` of `Phys` for the tools. 
+
+```
+dtt = DecayTreeTuple('Bu2LLK_ee')
+...
+dtt.Decay = '[B0 -> K*(892)0 (J/psi(1S) -> e- e+ )]CC'
+dtt.addBranches({'B0'    : '[^(B0 -> K*(892)0 (J/psi(1S) -> e- e+ ))]CC'})
+hop_tool = dtt.B0.addTupleTool('TupleToolHOP')
+b0_hybrid = dtt.B0.addTupleTool('LoKi::Hybrid::TupleTool/LoKi_B0')
+b0_hybrid.Variables = {
+    'hop_mass': 'BPVHOPM'
+}
+```
+
+In this example, the decay tree is created first, as well as a branch for the `B0`. The TupleTool `TupleToolHOP` is then added to the branch `B0` using `addTupleTool`. To use the LoKi functor to build leaves, the `LoKi::Hybrid::TupleTool` has to be used and configured with the LoKi variable of interest, here `BPVHOPM`.
+
+The results are presented in figures \ref{fig:B2Kstee-HOPMass}, \ref{fig:B2Kstee-HOP}, \ref{fig:B2Kemu-HOPMass} and \ref{fig:B2Kemu-HOP} showing a perfect agreement between both tools and the reference macro. It can be concluded then that the tools are working as expected and ready to be released.
 
 ![HOP corrected mass for simulated \BdKstee candidates\label{fig:B2Kstee-HOPMass}](figs/B2Kstee_HOPMass.png){ width=10cm }
 
