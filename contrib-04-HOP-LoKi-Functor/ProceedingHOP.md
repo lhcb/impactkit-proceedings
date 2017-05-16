@@ -100,7 +100,7 @@ b0_hybrid.Variables = {
 }
 ```
 
-In this example, the decay tree is created first, as well as a branch for the `B0`. The TupleTool `TupleToolHOP` is then added to the branch `B0` using `addTupleTool`. To use the LoKi functor to build leaves, the `LoKi::Hybrid::TupleTool` has to be used and configured with the LoKi variable of interest, here `BPVHOPM`.
+In this example, the decay tree is created first, as well as a branch for the `B0`. The TupleTool `TupleToolHOP` is then added to the branch `B0` using `addTupleTool`. To build leaves with LoKi functors, the `LoKi::Hybrid::TupleTool` has to be used and configured with the LoKi variable of interest, here `BPVHOPM`.
 
 The results are presented in figures \ref{fig:B2Kstee-HOPMass}, \ref{fig:B2Kstee-HOP}, \ref{fig:B2Kemu-HOPMass} and \ref{fig:B2Kemu-HOP} showing a perfect agreement between both tools and the reference macro. It can be concluded then that the tools are working as expected and ready to be released.
 
